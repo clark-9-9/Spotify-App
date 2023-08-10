@@ -1,0 +1,18 @@
+Access Token
+The access token is a string which contains the credentials and permissions that can be used to access a given resource (e.g artists, albums or tracks) or user's data (e.g your profile or your playlists).
+
+Access Token
+The access token is a string which contains the credentials and permissions that can be used to access a given resource (e.g artists, albums or tracks) or user's data (e.g your profile or your playlists).
+
+To use the access token you must include the following header in your API calls:
+
+HEADER PARAMETER	VALUE
+Authorization	Required Valid access token following the format: Bearer <Access Token>
+The following example uses cURL to retrieve information about a track using the Get a track endpoint:
+
+curl --request GET \
+    'https://api.spotify.com/v1/tracks/2TpxZ7JUBn3uw46aR7qd6V' \
+     --header "Authorization: Bearer NgCXRK...MzYjw"
+     
+Note that the access token is valid for 1 hour (3600 seconds). After that time, the token expires and you need to request a new one.
+

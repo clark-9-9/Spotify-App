@@ -1,0 +1,23 @@
+const options = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        'Authorization': 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'),
+    },
+    body: 'grant_type=client_credentials'
+};
+
+what is Buffer here is it built in node js
+
+ChatGPT
+Yes, Buffer is a built-in Node.js class that provides a way to work with binary data, such as reading from or writing to streams, handling binary data in file systems, and other low-level operations. It's commonly used for handling binary data, like encoding and decoding binary data, images, files, etc.
+In the context you provided earlier:
+
+'Authorization': 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'),
+
+Buffer.from() is used to convert the concatenation of CLIENT_ID and CLIENT_SECRET into a buffer, and then toString('base64') encodes the buffer in Base64. This is a common way to encode the client credentials for Basic authentication when making API requests.
+In modern JavaScript, especially when running in a browser environment, you might also use other methods like btoa() for Base64 encoding and fetch() for making network requests. However, in a Node.js environment, using Buffer for these operations is a common practice.
+
+
+
+

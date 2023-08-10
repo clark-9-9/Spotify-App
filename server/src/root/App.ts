@@ -1,14 +1,14 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import ConnectDB from "./db/ConnectDB";
-import express, { Express, Request, Response } from "express";
-
+// import ConnectDB from "./db/ConnectDB";
+import express, { Express } from "express";
+import spotifyRoutes from "./routes/Spotify";
 
 const app: Express = express();
+app.use(express.json());
 
-
-
+app.use("/app/v1", spotifyRoutes);
  
 
 
