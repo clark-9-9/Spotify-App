@@ -1,0 +1,19 @@
+'Authorization': 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64'),
+here why did u use basic instead Bearer is there difference
+
+Chat Gpt
+Yes, there is a difference between using `Basic` and `Bearer` in the `Authorization` header, and it depends on the context of the authentication.
+
+1. **Basic Authentication (`Basic`):**
+   - When you use `Basic` in the `Authorization` header, you are sending your client credentials (client ID and client secret) as a Base64-encoded string. This is typically used for the initial authentication step when obtaining an access token using the Client Credentials Flow.
+   - The format of `Basic` authentication is: `'Basic ' + Base64(client_id:client_secret)`
+
+2. **Bearer Authentication (`Bearer`):**
+   - When you use `Bearer` in the `Authorization` header, you are sending an already obtained access token for authentication. This token is used to grant access to specific resources on behalf of a user or application.
+   - The format of `Bearer` authentication is: `'Bearer ' + access_token`
+
+In the context of the code snippet you provided, you use `Basic` authentication to obtain an access token using the Client Credentials Flow. This involves sending your client credentials (client ID and client secret) as a Base64-encoded string in the `Authorization` header. This initial step is necessary to authenticate your app and obtain the access token that will be used later for actual API requests.
+
+Once you have the access token, you'll use `Bearer` authentication to include the token in the `Authorization` header of subsequent API requests. This tells the API that the request is authorized on behalf of the user or application associated with the access token.
+
+So, the use of `Basic` and `Bearer` authentication depends on the specific stage of authentication you're in: obtaining an access token (`Basic`) and using the obtained access token to access resources (`Bearer`).
