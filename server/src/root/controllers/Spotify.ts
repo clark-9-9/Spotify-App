@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
 const BASE_URL = "https://api.spotify.com";
-const tokenEndpoint = 'https://accounts.spotify.com/api/token';
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -10,16 +9,20 @@ interface AccessTokenType {
     "access_token": string;
     "token_type": string;
     "expires_in": number;
+    error?: any;
 }
 
 
+//- The type of Authorization is Client Credentials Flow
 async function GetToken(): Promise<AccessTokenType>  {
-
+    const tokenEndpoint = 'https://accounts.spotify.com/api/token';
+    const authHeader = 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64');
+    
     const options = {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            'Authorization': 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'),
+            'Authorization': authHeader,
         },
         body: 'grant_type=client_credentials'
     };
@@ -36,11 +39,11 @@ async function GetToken(): Promise<AccessTokenType>  {
 
 async function GetAlbums(req: Request, res: Response) {
     try {
-        const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
-        
-        
         const getToken = await GetToken();
+        if(getToken.error) res.status(401).json({ error: getToken.error });
+
         const accessToken = getToken.access_token;
+        const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
 
         const option = {
             method: 'GET',
@@ -52,9 +55,8 @@ async function GetAlbums(req: Request, res: Response) {
         const albumResponse = await fetch(albumsEndpoint, option);
         const albumsData = await albumResponse.json();
 
-        res.status(200);
-        if(albumsData.error) res.status(400);
-        return res.status(200).json({ albumsData });      
+        if(albumsData.error) return res.status(401).json({ error: albumsData.error, getToken }); 
+        return res.status(200).json({ albumsData, getToken });      
     } catch(err) {
         return res.status(500).json({ err });
     }
@@ -62,13 +64,15 @@ async function GetAlbums(req: Request, res: Response) {
 
 
 async function GetArtists(req: Request, res: Response) {
+    // const{ limit, offset } = req.query;
+    // const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?offset=${offset}&limit=${limit}`;
+    // const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums`;
+    const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg`;
+
     try {
-        const{ limit, offset } = req.query;
-        // const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?offset=${offset}&limit=${limit}`;
-        // const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums`;
-        const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg`;
-        console.log(limit , offset);
         const getToken = await GetToken();
+        if(getToken.error) res.status(401).json({ error: getToken.error });
+
         const accessToken = getToken.access_token;
         const options = {
             method: "GET",
@@ -80,9 +84,8 @@ async function GetArtists(req: Request, res: Response) {
         const artistsResponse = await fetch(artistsEndpoint, options);
         const artistsData = await artistsResponse.json();
 
-        res.status(200);
-        if(artistsData.error) res.status(400);
-        return res.json({ artistsData });
+        if(artistsData.error) res.status(401).json({ error: artistsData.error });
+        return res.status(200).json({ artistsData });
 
     } catch(err) {
         return res.status(500).json({ err });

@@ -1,0 +1,15 @@
+There are primarily four OAuth2 flows (grant types) commonly used to obtain an access token:
+
+1. **Authorization Code Flow:** This is the most common and secure way for web applications to obtain an access token on behalf of a user. It involves redirecting the user to an authorization server for authentication, obtaining an authorization code, and then exchanging that code for an access token.
+
+2. **Implicit Grant Flow:** This flow is designed for client-side applications, such as single-page apps, where the access token is returned directly to the client after the user authenticates. It's considered less secure and is being phased out in favor of other flows like Authorization Code with PKCE.
+
+3. **Client Credentials Flow:** This flow is used by confidential clients, typically server-side applications, to directly request an access token from the authorization server using their own credentials (client ID and client secret). It's used for accessing resources that are not user-specific.
+
+4. **Resource Owner Password Credentials Flow:** In this flow, the user's credentials (username and password) are sent to the authorization server directly by the client, which then returns an access token. It's less secure and not recommended in most cases.
+
+5. **Authorization Code Flow with PKCE:** This is an enhanced version of the Authorization Code Flow designed for public clients (like single-page apps) that cannot securely store a client secret. It uses a Proof Key for Code Exchange (PKCE) to mitigate certain security risks.
+
+In the context of Spotify's API and your Spotify Clone project, you would primarily use the Authorization Code Flow to access user-specific data and the Client Credentials Flow to access non-user-specific resources.
+
+It's important to choose the appropriate flow based on your application's security requirements, the type of access you need, and the nature of your client (confidential or public). Keep in mind that OAuth2 is a flexible framework, and the choice of flow can vary based on the use case and security considerations.
