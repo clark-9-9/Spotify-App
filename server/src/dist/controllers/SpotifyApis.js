@@ -6,35 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetRandomURI = exports.GetArtists = exports.GetAlbums = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+const SpotifyAuth_1 = require("./SpotifyAuth");
 const BASE_URL = "https://api.spotify.com";
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-//- The type of Authorization is Client Credentials Flow
-async function GetToken() {
-    const tokenEndpoint = 'https://accounts.spotify.com/api/token';
-    const authHeader = 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64');
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            'Authorization': authHeader,
-        },
-        body: 'grant_type=client_credentials'
-    };
-    try {
-        const tokenResponse = await fetch(tokenEndpoint, options);
-        const tokenData = await tokenResponse.json();
-        return tokenData;
-    }
-    catch (err) {
-        throw new Error("Error fetching access token");
-    }
-}
 async function GetAlbums(req, res) {
     // const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
     const albumsEndpoint = 'https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc';
     try {
-        const getToken = await GetToken();
+        const getToken = await (0, SpotifyAuth_1.GetToken)();
         if (getToken.error)
             res.status(401).json({ error: getToken.error });
         const accessToken = getToken.access_token;
@@ -61,7 +39,7 @@ async function GetArtists(req, res) {
     const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg`;
     // const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?offset=${offset}&limit=${limit}`;
     try {
-        const getToken = await GetToken();
+        const getToken = await (0, SpotifyAuth_1.GetToken)();
         if (getToken.error)
             res.status(401).json({ error: getToken.error });
         const accessToken = getToken.access_token;
@@ -91,7 +69,7 @@ async function GetRandomURI(req, res) {
     // const randomEndpoint = process.env.GET_SEVERAL_ALBUMS as RequestInfo;
     const randomEndpoint = process.env.GET_ALBUM_TRACKS;
     try {
-        const getToken = await GetToken();
+        const getToken = await (0, SpotifyAuth_1.GetToken)();
         if (getToken.error)
             res.status(401).json({ error: getToken.error });
         const accessToken = getToken.access_token;

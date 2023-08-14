@@ -1,15 +1,25 @@
 import dotenv from "dotenv";
+
 dotenv.config();
+// process.env.NODE_ENV = 'vars';
+// if (process.env.NODE_ENV === 'vars') 
+dotenv.config({ path: '.env.vars' }); 
+
 
 // import ConnectDB from "./db/ConnectDB";
 import express, { Express } from "express";
 import spotifyRoutes from "./routes/Spotify";
+import NotFound from "./errors/NotFound";
 
 const app: Express = express();
 app.use(express.json());
 
 app.use("/app/v1", spotifyRoutes);
  
+
+// ! Errors
+app.use(NotFound);
+
 
 
 
