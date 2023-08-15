@@ -10,9 +10,11 @@ dotenv_1.default.config();
 dotenv_1.default.config({ path: '.env.vars' });
 // import ConnectDB from "./db/ConnectDB";
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const Spotify_1 = __importDefault(require("./routes/Spotify"));
 const NotFound_1 = __importDefault(require("./errors/NotFound"));
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use("/app/v1", Spotify_1.default);
 // ! Errors

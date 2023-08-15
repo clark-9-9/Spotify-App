@@ -6,13 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetRandomURI = exports.GetArtists = exports.GetAlbums = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const SpotifyAuth_1 = require("./SpotifyAuth");
+const ClientCredentialsAuth_1 = require("../auth/ClientCredentialsAuth");
 const BASE_URL = "https://api.spotify.com";
 async function GetAlbums(req, res) {
     // const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
     const albumsEndpoint = 'https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc';
     try {
-        const getToken = await (0, SpotifyAuth_1.GetToken)();
+        const getToken = await (0, ClientCredentialsAuth_1.GetToken)();
         if (getToken.error)
             res.status(401).json({ error: getToken.error });
         const accessToken = getToken.access_token;
@@ -39,7 +39,7 @@ async function GetArtists(req, res) {
     const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg`;
     // const artistsEndpoint = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?offset=${offset}&limit=${limit}`;
     try {
-        const getToken = await (0, SpotifyAuth_1.GetToken)();
+        const getToken = await (0, ClientCredentialsAuth_1.GetToken)();
         if (getToken.error)
             res.status(401).json({ error: getToken.error });
         const accessToken = getToken.access_token;
@@ -69,7 +69,7 @@ async function GetRandomURI(req, res) {
     // const randomEndpoint = process.env.GET_SEVERAL_ALBUMS as RequestInfo;
     const randomEndpoint = process.env.GET_ALBUM_TRACKS;
     try {
-        const getToken = await (0, SpotifyAuth_1.GetToken)();
+        const getToken = await (0, ClientCredentialsAuth_1.GetToken)();
         if (getToken.error)
             res.status(401).json({ error: getToken.error });
         const accessToken = getToken.access_token;

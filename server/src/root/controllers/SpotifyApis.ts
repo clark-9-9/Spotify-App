@@ -2,10 +2,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { Request, Response } from "express";
-import { GetToken } from "./SpotifyAuth";
+import { GetToken } from "../auth/ClientCredentialsAuth";
 
 
 const BASE_URL = "https://api.spotify.com";
+
 
 async function GetAlbums(req: Request, res: Response) {
     // const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
