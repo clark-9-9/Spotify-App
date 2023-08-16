@@ -19,7 +19,7 @@ function generateRandomString(length) {
 ;
 function Login(req, res) {
     const state = generateRandomString(16);
-    const scope = 'user-read-private user-read-email';
+    const scope = process.env.SCOPE;
     const queryParams = {
         response_type: 'code',
         client_id: CLIENT_ID,
@@ -53,17 +53,63 @@ async function Callback(req, res) {
         const authOptions = {
             method: "POST",
             headers: {
-                "Content-type": "application/json",
+                "Content-type": "application/x-www-form-urlencoded",
                 "Authorization": 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')
             },
             body: body
         };
         const response = await fetch(tokenEndpoint, authOptions);
         const data = await response.json();
+        console.log(data);
         return res.json({ data });
     }
 }
 exports.Callback = Callback;
+/*
+
+    const scope: string = `
+        ugc-image-upload
+
+        user-read-playback-state
+        user-modify-playback-state
+        user-read-currently-playing
+
+        app-remote-control
+        streaming
+
+        user-read-email
+        user-read-private
+        
+        playlist-read-private
+        playlist-read-collaborative
+        playlist-modify-private
+        playlist-modify-public
+
+        user-follow-modify
+        user-follow-read
+
+        user-read-playback-position
+        user-top-read
+        user-read-recently-played
+        
+        user-library-modify
+        user-library-read
+        
+        user-follow-modify
+        user-follow-read
+
+        user-read-playback-state
+        user-modify-playback-state
+        user-read-currently-playing
+        
+        user-soa-link
+        user-soa-unlink
+        user-manage-entitlements
+        user-manage-partner
+        user-create-partner
+    `;
+
+*/
 /*
 
  * This is an example of a basic node.js script that performs
