@@ -1,5 +1,7 @@
 //- Type of Authorization (Authorization Code Flow)
 import { Request, Response } from "express";
+import request from "request";
+import cookieParser from "cookie-parser";
 import queryString from "node:querystring";
 
 
@@ -10,11 +12,10 @@ const REDIRECT_URI = "http://localhost:8080/callback";
 // const REDIRECT_URI = "http://my-music-app.com/callback";
 
 
-interface AccessTokenType {
-    "access_token": string;
-    "token_type": string;
-    "expires_in": number;
-    error?: any;
+interface AuthResponse {
+    state: string;
+    code?: string;
+    error?: string;
 }
 
 
@@ -29,64 +30,258 @@ function generateRandomString(length: number): string {
 };
   
   
-function Login(req: Request, res: Response) {
-    const state: string = generateRandomString(16);
-    const scope = process.env.SCOPE;  
+// function Login(req: Request, res: Response) {
+//     const state: string = generateRandomString(16);
+//     const scope = process.env.SCOPE;  
+
+//     const queryParams = {
+//         response_type: 'code',
+//         client_id: CLIENT_ID,
+//         scope: scope,
+//         redirect_uri: REDIRECT_URI,
+//         state: state      
+//     }
+
+//     const url: string = queryString.stringify(queryParams);
+//     res.redirect('https://accounts.spotify.com/authorize?' + url);
+// }
+
+const stateKey = 'spotify_auth_state';
+
+async function Login(req: Request, res: Response) {
+    const state = generateRandomString(16);
+    const scope = 'user-read-private user-read-email';
 
     const queryParams = {
         response_type: 'code',
         client_id: CLIENT_ID,
         scope: scope,
         redirect_uri: REDIRECT_URI,
-        state: state      
-    }
+        state: state,
+    };
 
     const url: string = queryString.stringify(queryParams);
-    res.redirect('https://accounts.spotify.com/authorize?' + url);
+    console.log(req.query, "Login route"); 
+    const authUrl = `https://accounts.spotify.com/authorize?${url}`;
+    res.redirect(authUrl);
 }
 
 
 async function Callback(req: Request, res: Response) {
-    const tokenEndpoint = 'https://accounts.spotify.com/api/token';
     const code = req.query.code || null;
     const state = req.query.state || null;
 
-    if (state === null) {
-        const error = queryString.stringify({
-            error: 'state_mismatch'
-        })
- 
-        return res.redirect('/#' + error);
+    
+
+    if(state === null || code === null) {
+        res.redirect('/#' +
+        queryString.stringify({
+          error: 'authorization_failed'
+        }));
     } else {
-        if (typeof code !== 'string') return res.status(400).json({ error: 'Code parameter is missing' });
-
-        const body: URLSearchParams | string = new URLSearchParams({
-            code: code,
-            redirect_uri: REDIRECT_URI,
-            grant_type: 'authorization_code'
-        });
-
-        console.log(body);
-
+        const tokenEndpoint = "https://accounts.spotify.com/api/token"; 
+        const authHeader = 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64');
         const authOptions = {
             method: "POST",
             headers: {
-                "Content-type": "application/x-www-form-urlencoded",
-                "Authorization": 'Basic ' +  Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": authHeader
             },
-
-            body: body
+            body: queryString.stringify({
+                code: code as string,
+                redirect_uri: REDIRECT_URI,
+                grant_type: 'authorization_code',
+            }),
         }
 
         const response = await fetch(tokenEndpoint, authOptions);
         const data = await response.json();
-
-        console.log(data);
+        console.log(response.ok);
         
-
-        return res.json({ data })
+        res.json({ data, code, state });
     }
 }
+
+
+
+
+/* async function Callback(req: Request, res: Response) {
+    const code = req.query.code || null;
+    const state = req.query.state || null;
+    const storedState = req.cookies ? req.cookies[stateKey] : null;
+  
+    console.log(code);
+    console.log(state);
+    
+
+    if (state === null || state !== storedState) {
+      res.redirect('/#' +
+        queryString.stringify({
+          error: 'state_mismatch'
+        }));
+    } else {
+      res.clearCookie(stateKey);
+      var authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        form: {
+          code: code,
+          redirect_uri: REDIRECT_URI,
+          grant_type: 'authorization_code'
+        },
+        headers: {
+          'Authorization': 'Basic ' +  new Buffer(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')
+        },
+        json: true
+      };
+  
+      request.post(authOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+  
+          var access_token = body.access_token,
+              refresh_token = body.refresh_token;
+  
+          var options = {
+            url: 'https://api.spotify.com/v1/me',
+            headers: { 'Authorization': 'Bearer ' + access_token },
+            json: true
+          };
+  
+          // use the access token to access the Spotify Web API
+          request.get(options, function(error, response, body) {
+            console.log(body);
+          });
+  
+          // we can also pass the token to the browser to make requests from there
+          res.redirect('/#' +
+            queryString.stringify({
+              access_token: access_token,
+              refresh_token: refresh_token
+            }));
+        } else {
+          res.redirect('/#' +
+            queryString.stringify({
+              error: 'invalid_token'
+            }));
+        }
+      });
+    }
+}
+*/    
+
+/*
+async function Callback(req: Request, res: Response) {
+    const code = req.query.code || null;
+    const state = req.query.state || null;
+  
+    const authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        // Convert form data to a URL-encoded string
+        form: queryString.stringify({
+          code: code as string,
+          redirect_uri: REDIRECT_URI,
+          grant_type: 'authorization_code',
+          client_id: CLIENT_ID,
+        }),
+        headers: {
+          'Authorization': 'Basic ' + (Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')),
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        json: true,
+    };
+      
+    try {
+        const response = await fetch(authOptions.url, { method: 'POST', body: authOptions.form, headers: authOptions.headers });
+        const data = await response.json();
+        console.log(data); // Access token, token type, etc.
+        return res.json(data); // Respond with the data
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'An error occurred' });
+    }
+            
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// async function Callback(req: Request, res: Response) {
+//     const tokenEndpoint = 'https://accounts.spotify.com/api/token';
+//     const code = req.query.code || null;
+//     const state = req.query.state || null;
+
+
+//     console.log(req.query, "callback route"); 
+
+
+//     if (state === null) {
+//         const error = queryString.stringify({
+//             error: 'state_mismatch'
+//         })
+ 
+//         return res.redirect('/#' + error);
+//     } else {
+//         if (typeof code !== 'string') return res.status(400).json({ error: 'Code parameter is missing' });
+
+//         const body: URLSearchParams | string = new URLSearchParams({
+//             code: code,
+//             redirect_uri: REDIRECT_URI,
+//             grant_type: 'authorization_code'
+//         });
+
+
+//         const authOptions = {
+//             method: "POST",
+//             headers: {
+//                 "Content-type": "application/x-www-form-urlencoded",
+//                 "Authorization": 'Basic ' +  Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')
+//             },
+
+//             body: body
+//         }
+
+//         const response = await fetch(tokenEndpoint, authOptions);
+//         const data = await response.json();
+
+//         console.log(response, data, "Res, Data");
+        
+
+//         return res.json({ data })
+//     }
+// }
 
 
 
