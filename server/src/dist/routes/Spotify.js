@@ -12,4 +12,6 @@ router.get("/get-artists", SpotifyApis_1.GetArtists);
 router.get("/get-random", SpotifyApis_1.GetRandomURI);
 router.get("/login", AuthorizationCodeAuth_1.Login);
 router.get("/callback", AuthorizationCodeAuth_1.Callback);
+router.get("/refresh_token", AuthorizationCodeAuth_1.RefreshToken);
+router.get("/get-playlists", AuthorizationCodeAuth_1.GetCurrentUsersPlaylists);
 exports.default = router;

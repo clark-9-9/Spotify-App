@@ -11,8 +11,7 @@ import cors from "cors";
 import spotifyRoutes from "./routes/Spotify";
 import NotFound from "./errors/NotFound";
 import path from "path";
-import fs from "node:fs";
-
+import cookieParser from "cookie-parser";
 
 const app: Express = express();
 // const indexPath = path.join(__dirname, 'public', 'index.html'); 
@@ -22,19 +21,15 @@ const indexPath = path.resolve(__dirname, "../../public/index.html");
 app.use(express.static(path.resolve(__dirname, "../../public"))); 
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
-
 
 app.use("/", spotifyRoutes); 
 
 app.get('/', (req:Request, res: Response) => {
     res.sendFile(indexPath);
 });
-
-// const read = fs.readFileSync(indexPath, "utf-8");
-// console.log(read); 
-
 
 
 // ! Errors
