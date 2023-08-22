@@ -1,16 +1,11 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import { Request, Response } from "express";
 import { GetToken } from "../auth/ClientCredentialsAuth";
 
 
-const BASE_URL = "https://api.spotify.com";
-
 
 async function GetAlbums(req: Request, res: Response) {
     // const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
-    const albumsEndpoint = 'https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc';
+    const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
 
     try {
         const getToken = await GetToken();
@@ -67,13 +62,6 @@ async function GetArtists(req: Request, res: Response) {
 
 async function GetRandomURI(req: Request, res: Response) {
 
-    //- main
-    // const randomEndpoint = "https://api.spotify.com/v1/artists/{id}";
-    // const randomEndpoint = "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb";
-    // const randomEndpoint = "https://api.spotify.com/v1/artists/4W3fa7tiXGVXl3KilbACqt?si=4bEkVXo_TYCWDRhWOzbVGA";
-
-    // const randomEndpoint = process.env.GET_ALBUM as RequestInfo;
-    // const randomEndpoint = process.env.GET_SEVERAL_ALBUMS as RequestInfo;
     const randomEndpoint = process.env.GET_ALBUM_TRACKS as RequestInfo;
 
     try {
@@ -98,6 +86,8 @@ async function GetRandomURI(req: Request, res: Response) {
         return res.status(500).json({ err });
     }
 }
+
+
 
 
 export { GetAlbums, GetArtists, GetRandomURI };

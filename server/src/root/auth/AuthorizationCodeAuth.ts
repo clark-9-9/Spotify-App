@@ -1,8 +1,8 @@
 //- Type of Authorization (Authorization Code Flow)
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import queryString from "node:querystring";
-import { ResponseAccessToken, ResponseErrorToken } from "../Types/AuthTypes";
-
+import { ResponseAccessToken, ResponseErrorToken } from "../Types/AuthTypes.js";
+ 
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -23,7 +23,7 @@ function generateRandomString(length: number): string {
   
 async function Login(req: Request, res: Response) {
     const state = generateRandomString(16);
-    const scope = 'user-read-private user-read-email';
+    const scope = 'user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-email user-read-private playlist-read-private playlist-modify-private playlist-modify-public user-follow-modify user-follow-read user-library-modify user-library-read user-follow-modify user-follow-read';
 
     const queryParams = {
         response_type: 'code',
@@ -40,7 +40,7 @@ async function Login(req: Request, res: Response) {
 }
 
 
-async function Callback(req: Request, res: Response, next: NextFunction) {
+async function Callback(req: Request, res: Response) {
     const code = req.query.code || null;
     const state = req.query.state || null;
     // const storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -82,20 +82,17 @@ async function Callback(req: Request, res: Response, next: NextFunction) {
             ); 
 
             res.redirect("/")
-            // response.ok ? res.status(200): res.status(401);
-            // res.json({ data, status: res.statusCode });
         }
     } catch(err) {
-        // res.status(500).json(err);
         console.error(err);
     }
 }
 
 
-
 async function RefreshToken(req: Request, res: Response) {
     const refresh_token = req.cookies.refresh_token;
-
+    if (!refresh_token) return res.status(401).json({ error: 'Refresh token missing' });
+    
     const tokenEndpoint = "https://accounts.spotify.com/api/token"; 
     const authHeader = 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64');
     const body = `grant_type=refresh_token&refresh_token=${encodeURIComponent(refresh_token as string)}`;
@@ -112,41 +109,34 @@ async function RefreshToken(req: Request, res: Response) {
     try {
         const response = await fetch(tokenEndpoint, authOptions);
         const data: ResponseAccessToken | ResponseErrorToken = await response.json();
-        if (response.ok) res.status(200).json({ data, status: 200 });
-        else res.status(401).json({ data, status: 401 });
+        if ("access_token" in data) {
+            return res.status(200).json({ 
+                access_token: data.access_token,  
+                refresh_token: data.refresh_token,
+                status: 200 
+            });
+        } else {
+            return res.status(401).json({ error: data.error, status: 401 });
+        }
     } catch(err) {
-        res.status(500).json(err);
+        return res.status(500).json(err);
     }
 }
 
 
-async function GetCurrentUsersPlaylists(req: Request, res: Response)  {
-    // if("access_token" in )
-    const accessToken = req.cookies.access_token;
-    if (!accessToken) {
-        return res.status(401).json({ error: 'Access token missing' });
-    }
+async function GetAccessToken(req: Request, res:Response) {
+    const access_token = req.cookies.access_token;
+    if (!access_token) return res.status(401).json({ error: 'Access token missing' });
+    res.status(200).json({ access_token });
+}
 
-    try {
-        const playlistsEndpoint = 'https://api.spotify.com/v1/me';
-        const playlistsResponse = await fetch(playlistsEndpoint, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
 
-        if (playlistsResponse.ok) {
-            const playlistsData = await playlistsResponse.json();
-            res.status(200).json({ playlistsData });
-        } else {
-            res.status(playlistsResponse.status).json({ error: 'Failed to fetch playlists' });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
+
+
+
+export { 
+    Login, 
+    Callback, 
+    RefreshToken, 
+    GetAccessToken
 };
-
-
-
-export { Login, Callback, RefreshToken, GetCurrentUsersPlaylists };

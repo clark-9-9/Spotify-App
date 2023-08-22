@@ -1,24 +1,24 @@
 import dotenv from "dotenv";
-dotenv.config();
-// process.env.NODE_ENV = 'vars';
-// if (process.env.NODE_ENV === 'vars') 
-dotenv.config({ path: '.env.vars' }); 
-
-
+dotenv.config(); 
+// process.env.NODE_ENV = 'vars'; 
+// if (process.env.NODE_ENV === 'vars')  
+dotenv.config({ path: '.env.vars' });   
+  
+ 
 // import ConnectDB from "./db/ConnectDB";
-import express, { Express, Request, Response } from "express";
+import express, { Express, Request, Response } from "express"; 
 import cors from "cors"; 
-import spotifyRoutes from "./routes/Spotify";
-import NotFound from "./errors/NotFound";
-import path from "path";
-import cookieParser from "cookie-parser";
-
+import spotifyRoutes from "./routes/Spotify.js";
+import NotFound from "./errors/NotFound.js";
+import cookieParser from "cookie-parser"; 
+import path from "path"; 
+  
+ 
 const app: Express = express();
-// const indexPath = path.join(__dirname, 'public', 'index.html'); 
-const indexPath = path.resolve(__dirname, "../../public/index.html");
+const indexPath = path.resolve(__dirname, "./public/index.html");
 
-
-app.use(express.static(path.resolve(__dirname, "../../public"))); 
+app.use(express.static(path.resolve(__dirname, "./public"))); 
+ 
 
 app.use(cors());
 app.use(cookieParser());
@@ -31,16 +31,19 @@ app.get('/', (req:Request, res: Response) => {
     res.sendFile(indexPath);
 });
 
+app.get('/home', (req:Request, res: Response) => {
+    res.send("<h1>hello world</h1>");
+});
 
-// ! Errors
+
 app.use(NotFound);
+ 
 
 
-
-
+ 
 const port = process.env.PORT || 3000;
 // const port = 3000;
-function start() {
+function start() {  
   
     try {
         // const URI = process.env.MONGO_URI;

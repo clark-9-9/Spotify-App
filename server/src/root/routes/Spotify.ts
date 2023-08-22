@@ -1,21 +1,28 @@
 import express, { Router } from "express";
-import { GetAlbums, GetArtists, GetRandomURI } from "../controllers/SpotifyApis";
+import { GetAlbums, GetArtists, GetRandomURI } from "../controllers/PublicSpotifyApis";
 import { 
     Login, 
     Callback, 
     RefreshToken, 
-    GetCurrentUsersPlaylists 
+    GetAccessToken
 } from "../auth/AuthorizationCodeAuth";
 
-const router: Router = express.Router();
+import {
+    GetCurrentUsersPlaylists,
+} from "../controllers/PrivateSpotifyApis";
 
+
+const router: Router = express.Router();
 
 router.get("/get-albums", GetAlbums);
 router.get("/get-artists", GetArtists);
 router.get("/get-random", GetRandomURI);
+
 router.get("/login", Login);
 router.get("/callback", Callback);
+router.get("/get-token", GetAccessToken);
 router.get("/refresh_token", RefreshToken)
+
 router.get("/get-playlists", GetCurrentUsersPlaylists);
 
 export default router;
