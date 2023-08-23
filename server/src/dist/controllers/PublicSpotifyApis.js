@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetRandomURI = exports.GetArtists = exports.GetAlbums = void 0;
 const ClientCredentialsAuth_1 = require("../auth/ClientCredentialsAuth");
 async function GetAlbums(req, res) {
-    // const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
     const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
+    // const albumsEndpoint = 'https://api.spotify.com/v1/albums';
     try {
         const getToken = await (0, ClientCredentialsAuth_1.GetToken)();
         if (getToken.error)

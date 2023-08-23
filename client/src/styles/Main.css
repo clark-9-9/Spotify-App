@@ -1,0 +1,29 @@
+:root {
+    --Sidebar_Dashboard_Color: #121212;
+    --Black: #191414;
+    --Green: #1DB954;
+    --white: #fff;
+}
+
+
+*, ::before, ::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #000;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: white; 
+}
+
+
+.Main {
+    width: 100vw;
+    height: 100vh;
+}
+
+

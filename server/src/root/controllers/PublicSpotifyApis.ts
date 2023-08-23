@@ -4,8 +4,8 @@ import { GetToken } from "../auth/ClientCredentialsAuth";
 
 
 async function GetAlbums(req: Request, res: Response) {
-    // const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
     const albumsEndpoint = 'https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy';
+    // const albumsEndpoint = 'https://api.spotify.com/v1/albums';
 
     try {
         const getToken = await GetToken();
