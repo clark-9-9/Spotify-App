@@ -18,12 +18,75 @@ body {
     font-size: 16px;
     font-family: sans-serif;
     color: white; 
+    overflow-x: hidden;
 }
 
 
 .Main {
+    position: relative;
     width: 100vw;
     height: 100vh;
+    padding: 10px;
+    /* display: flex; */
 }
 
 
+/* ---- Sidebar ---- */
+
+.Sidebar {
+    height: 100%;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.Top_Sidebar {
+    background-color: var(--Sidebar_Dashboard_Color);
+    border-radius: 8px;
+    /* padding: 8px 12px; */
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.Top_Sidebar span {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.Home_Ic, .Search_Ic {
+    fill: rgba(255, 255, 255, 0.7);
+    transition: 200ms ease-in-out fill;
+} 
+
+
+.Top_Sidebar span p {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    font-size: 15px;
+    transition: 200ms ease-in-out color;
+}
+
+
+.Top_Sidebar span:hover .Home_Ic, 
+.Top_Sidebar span:hover .Search_Ic,
+.Top_Sidebar span:hover p {
+    fill: rgba(255, 255, 255);
+    color: rgba(255, 255, 255);
+}
+
+
+.Bottom_Sidebar {
+    height: 100%;
+    background-color: var(--Sidebar_Dashboard_Color);
+    border-radius: 8px;
+    padding: 16px 20px;
+
+}

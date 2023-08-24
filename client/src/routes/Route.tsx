@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([ 
     {
         path: "/",
-        element: <Home />
+        element: <Home />,
     },
     {
         path: "/about",
@@ -15,7 +15,6 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         path: "/blog",
         element: <h1>Blog Page</h1>
     },
-
-])
+]);
 
 export default router;
