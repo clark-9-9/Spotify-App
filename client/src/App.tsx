@@ -1,5 +1,5 @@
-import { Sidebar } from './components/Sidebar';
-import { Dashboard } from './components/Dashboard';
+import { Sidebar } from './components/main/Sidebar';
+import { Dashboard } from './components/main/Dashboard';
 
 
 
