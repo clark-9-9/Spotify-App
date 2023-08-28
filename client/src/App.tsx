@@ -1,13 +1,13 @@
-import { Sidebar } from './components/main/Sidebar';
-import { Dashboard } from './components/main/Dashboard';
+import { RouterProvider } from 'react-router-dom';
+import router from './routes/Route';
+
 
 
 
 function App() {
-  return (
+  return ( 
     <div className="Main">
-        <Sidebar />
-        <Dashboard />
+        <RouterProvider router={router} />
     </div>
   );
 }

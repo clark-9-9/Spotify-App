@@ -1,0 +1,410 @@
+
+
+
+
+.Sidebar {
+    height: 100%;
+    width: 410px;
+    max-width: 470px;
+    /* min-width: 280px; */
+    min-width: 310px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    resize: horizontal;
+    overflow-x: auto; 
+    /* border: 1px solid; */
+}
+
+
+section.Top_Sidebar {
+    background-color: var(--Sidebar_Dashboard_Color);
+    /* padding: 8px 12px; */
+    padding: 20px 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.Top_Sidebar article {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.Home_Svg, .Search_Svg {
+    fill: rgba(255, 255, 255, 0.7);
+    transition: 200ms ease-in-out fill;
+} 
+
+
+.Top_Sidebar article p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    transition: 200ms ease-in-out color;
+}
+
+
+.Top_Sidebar article:hover .Home_Svg, 
+.Top_Sidebar article:hover .Search_Svg,
+.Top_Sidebar article:hover .User_Ic,
+.Top_Sidebar article:hover p {
+    fill: rgba(255, 255, 255);
+    color: rgba(255, 255, 255);
+}
+
+
+.User_Ic {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: 200ms ease-in-out color;
+}
+
+
+section.Bottom_Sidebar {
+    height: 100%;
+    background-color: var(--Sidebar_Dashboard_Color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden; 
+}
+
+
+.Bottom_Sidebar_Header {
+    background-color: var(--Sidebar_Dashboard_Color);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    /* display: none; */
+    /* box-shadow: 2px 2px 20px black; */
+}
+
+
+.LibraryTitle_CreateBtn_Container {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+
+.LibraryTitle_CreateBtn_Container span:nth-child(1) {
+    color: rgb(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.Library_Svg {
+    fill: rgb(255, 255, 255, 0.7);
+}
+
+
+.Add_Outline_Ic {
+    padding: 2px;
+    font-size: 1.5rem  /* 24px */;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 200ms ease-in-out background-color;
+} 
+
+
+.Add_Outline_Ic:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.Create_Playlist_Folder_Box {
+    position: absolute;
+    width: max-content;
+    background-color: var(--Darkened_Label_Color);
+    margin-top: 5px;
+    padding: 4px;
+    opacity: 0;
+    border-radius: 3px;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: 200ms ease-in-out opacity, 200ms ease-in-out visibility;
+}
+
+/* 
+animation-name: CreatePlaylistAndFolder;
+animation-duration: 200ms;
+animation-timing-function: ease-in-out;
+
+@keyframes CreatePlaylistAndFolder {
+    from { opacity: 0; }
+    to { opacity: 1; }
+} 
+*/
+
+
+.Create_Playlist_Folder_Box button {
+    color: white;
+    background-color: transparent;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    outline: none;
+}
+
+
+.Create_Playlist_Folder_Box button:hover {
+    background-color: rgb(255,255,255, 0.1);
+}
+
+
+ul.Selection_List {
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    list-style: none;
+}
+
+
+.Selection_List li {
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 200ms ease-in-out background-color;
+}
+
+
+.Selection_List li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.User_Library {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+
+.User_Library::-webkit-scrollbar {
+    width: 1vw; 
+}
+  
+
+.User_Library::-webkit-scrollbar-thumb {
+    background-color: #7775; 
+    /* background-image:  linear-gradient(0deg, rgba(255, 0, 0, 1) 0%, rgba(7, 0, 211, 1) 100%); */
+    /* border-radius: 4px;  */
+}
+
+
+.User_Library::-webkit-scrollbar-thumb:hover {
+    /* background-image:  linear-gradient(0deg, rgba(255, 0, 0, 1) 0%, rgba(7, 0, 211, 1) 100%); */
+    background-color: #777; 
+    /* border-radius: 4px;  */
+}
+
+  
+.User_Library::-webkit-scrollbar-track {
+    /* background-color: #5555;  */
+    background-color: transparent; 
+    /* border-radius: 4px; */
+}
+ 
+
+
+
+.Search_User_Saved_Item {
+    padding: 0 16px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.Recent_Box {
+    color: rgb(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 14px;
+}   
+
+
+.Search_Ic_Box {
+    position: relative;
+}
+
+
+[name='search-outline'].Search_Ic {
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    translate: 0 -50%;
+    font-size: 1.2rem ;
+    border-radius: 50%;
+    padding: 4px;
+    cursor: pointer;
+    transition: 200ms ease-in-out background-color;
+}
+
+
+.Search_Ic:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.Search_Input {
+    width: 200px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding-left: 35px;
+    padding-right: 10px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    transition: 
+        300ms ease-in-out width, 
+        300ms ease-in-out padding,
+        300ms ease-in-out visibility,
+        300ms ease-in-out opacity,
+    ;
+}
+
+
+.Search_Input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+
+.User_Saved_Item_Container {
+    position: relative;
+    height: 100%;
+    /* padding: 0 7px; */
+    margin-top: 10px;
+}
+
+
+.User_Saved_Item {
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.User_Categories {
+    /* padding: 0 10px; */
+    padding: 0 16px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: 200ms ease-in-out background-color;
+}
+
+
+.Categories {
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 200ms ease-in-out background-color;
+}
+
+
+.Categories:hover {
+    background-color: rgb(255,255,255, 0.1);
+}
+
+.Categories :first-child{
+    height: 20px;
+    width: 20px;
+}
+
+.Categories p {
+    font-size: 14px;
+}
+
+
+
+
+
+
+
+/*   
+.User_Saved_Item_Container {
+    position: relative;
+    height: 100%;
+    padding: 0 7px;
+    margin-top: 10px;
+}
+
+
+.User_Saved_Item {
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.User_Saved_List {
+    width: 100%;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 7px;
+    display: flex;
+    gap: 10px;
+    transition: 200ms ease-in-out background-color;
+}
+
+
+.User_Saved_List:hover {
+    background-color: rgb(255,255,255, 0.1);
+}
+
+
+.User_Saved_List img {
+    height: 55px;
+    width: 55px;
+}
+
+.Artist img {
+    border-radius: 50%;
+}
+
+.Playlist img {
+    border-radius: 7px;
+}
+
+
+.Title_Name_Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+
+.Title_Name_Container p:nth-child(2) {
+    font-size: 13px;
+    color: rgb(255, 255, 255, 0.7);
+} */

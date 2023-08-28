@@ -7,6 +7,11 @@
 }
 
 
+/* 
+    border-radius : 3,7,8,30,50% 
+*/
+
+
 *, ::before, ::after {
     padding: 0;
     margin: 0;
@@ -17,7 +22,7 @@
 body {
     background-color: #000;
     font-size: 16px;
-    font-weight: 600;
+    /* font-weight: 600; */
     font-family: sans-serif;
     color: white; 
     overflow-x: hidden;
@@ -28,253 +33,10 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    padding: 10px;
+    padding: 8px;
+    display: flex;
     /* cursor: ew-resize; */
     /* display: flex; */
 }
 
 
-/* ---- Sidebar ---- */
-
-.Sidebar {
-    height: 100%;
-    width: 410px;
-    max-width: 470px;
-    min-width: 280px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    resize: horizontal;
-    overflow: auto; 
-}
-
-
-section.Top_Sidebar {
-    background-color: var(--Sidebar_Dashboard_Color);
-    border-radius: 8px;
-    /* padding: 8px 12px; */
-    padding: 20px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-
-.Top_Sidebar article {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-
-.Home_Svg, .Search_Svg {
-    fill: rgba(255, 255, 255, 0.7);
-    transition: 200ms ease-in-out fill;
-} 
-
-
-.Top_Sidebar article p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 15px;
-    transition: 200ms ease-in-out color;
-}
-
-
-.Top_Sidebar article:hover .Home_Svg, 
-.Top_Sidebar article:hover .Search_Svg,
-.Top_Sidebar article:hover .User_Ic,
-.Top_Sidebar article:hover p {
-    fill: rgba(255, 255, 255);
-    color: rgba(255, 255, 255);
-}
-
-
-.User_Ic {
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.7);
-    transition: 200ms ease-in-out color;
-}
-
-
-section.Bottom_Sidebar {
-    height: 100%;
-    background-color: var(--Sidebar_Dashboard_Color);
-    border-radius: 8px;
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    /* overflow-x: hidden; */
-}
-
-
-.Bottom_Sidebar_Header {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-
-.LibraryTitle_CreateBtn_Container {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    
-}
-
-
-.LibraryTitle_CreateBtn_Container span:nth-child(1) {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    color: rgb(255, 255, 255, 0.7);
-}
-
-
-.Library_Svg {
-    fill: rgb(255, 255, 255, 0.7);
-}
-
-
-.Add_Outline_Ic {
-    font-size: 1.5rem  /* 24px */;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: 200ms ease-in-out background-color;
-    padding: 2px;
-} 
-
-.Add_Outline_Ic:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.Create_Playlist_Folder_Box {
-    margin-top: 5px;
-    width: max-content;
-    position: absolute;
-    background-color: var(--Darkened_Label_Color);
-    display: flex;
-    flex-direction: column;
-    padding: 4px;
-    border-radius: 3px;
-    opacity: 0;
-    visibility: hidden;
-    transition: 200ms ease-in-out opacity, 200ms ease-in-out visibility;
-}
-
-/* 
-animation-name: CreatePlaylistAndFolder;
-animation-duration: 200ms;
-animation-timing-function: ease-in-out;
-
-@keyframes CreatePlaylistAndFolder {
-    from { opacity: 0; }
-    to { opacity: 1; }
-} 
-*/
-
-
-
-.Create_Playlist_Folder_Box button {
-    color: white;
-    background-color: transparent;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: none;
-    outline: none;
-    padding: 10px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-
-.Create_Playlist_Folder_Box button:hover {
-    background-color: rgb(255,255,255, 0.1);
-}
-
-
-ul.Selection_List {
-    display: flex;
-    gap: 10px;
-    text-decoration: none;
-    list-style: none;
-}
-
-
-.Selection_List li {
-    background-color: rgba(255, 255, 255, 0.1);
-    font-size: 13px;
-    padding: 8px 10px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 200ms ease-in-out background-color;
-}
-
-
-.Selection_List li:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-
-.User_Library {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 1.5rem;
-    /* border: 1px solid white */
-}
-
-
-.Search_User_Saved_Item {
-    display: flex;
-    justify-content: space-between;
-}
-
-
-.Search_User_Saved_Item p {
-    font-size: 13px;
-}   
-
-
-.Search_Ic_Box {
-    position: relative;
-    display: flex;
-    /* border: 1px solid white; */
-}
-
-
-.Search_Ic {
-    position: absolute;
-    left: 7px;
-    top: 50%;
-    translate: 0 -50%;
-    font-size: 1.2rem  /* 24px */;
-    border-radius: 50%;
-    transition: 200ms ease-in-out background-color;
-    padding: 2px;
-    cursor: pointer;
-}
-
-
-.Search_Ic:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-
-.Search_Item_Input {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    width: 200px;
-    padding: 6px 10px 6px 35px;
-    border-radius: 3px;
-    border: none;
-    outline: none;
-}
-
-
-.Search_Item_Input::-webkit-search-clear-button {
-    color: white;
-    cursor: pointer;
-}
