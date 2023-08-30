@@ -1,24 +1,35 @@
 import IonIcon from '@reacticons/ionicons';
 import React, { useState, CSSProperties, useRef } from 'react';
+import type { TopSidebarTypes } from '../../types/Sidebar';
 
 import {
-    home, homeFilled,search, searchFilled, library,
-    playlists, songs, madeForYou, artists, albums
+    home, 
+    homeFilled,search, 
+    searchFilled, 
+    library,
+    playlists, 
+    songs, 
+    madeForYou, 
+    artists, albums
 } from "../../svg/Sidebar";
 
 import {
-    handle_change_home_icon, handle_change_search_icon, 
-    handle_mouseover_mouseout, handle_create_box, 
+    handle_change_home_icon, 
+    handle_change_search_icon, 
+    handle_mouseover_mouseout, 
+    handle_create_box, 
 } from "../../handler/Sidebar";
-import { SearchInputStyle } from '../../styles/JSX_Styles/Sidebar';
-import { TopSidebarTypes } from '../../types/Sidebar';
+
+import { 
+    colorStyles, 
+    homeTextStyle, 
+    searchTextStyle,
+    SearchInputStyle, 
+    createPlaylistFolderBox
+} from '../../styles/JSX_Styles/Sidebar';
 
 
 
-const colorStyles = {
-    active: "rgba(255, 255, 255)",
-    inActive: "rgba(255, 255, 255, 0.7)",
-}
 
 
 function Sidebar() {
@@ -44,8 +55,6 @@ function TopSidebar({ changeHomeIconAndState, changeSearchIconAndState }: TopSid
     const{ changeHomeIcon, setChangeHomeIcon } = changeHomeIconAndState;
     const{ changeSearchIcon, setChangeSearchIcon } = changeSearchIconAndState;
 
-    const homeTextStyle = { color: changeHomeIcon ? colorStyles.active : colorStyles.inActive };
-    const searchTextStyle = { color: changeSearchIcon ? colorStyles.active : colorStyles.inActive };
 
     return (
         <section className="Top_Sidebar">
@@ -54,17 +63,19 @@ function TopSidebar({ changeHomeIconAndState, changeSearchIconAndState }: TopSid
                 onMouseOver={() => handle_mouseover_mouseout(0, colorStyles.active, !changeHomeIcon)} 
                 onMouseOut={() => handle_mouseover_mouseout(0, colorStyles.inActive, !changeHomeIcon)}
             >
-                { changeHomeIcon ? homeFilled("Home_Svg", { fill: homeTextStyle.color as CSSProperties }) : home("Home_Svg") }
-                <p style={homeTextStyle}>Home</p>
+                { changeHomeIcon ? homeFilled("Home_Svg", { fill: homeTextStyle(changeHomeIcon).color as CSSProperties }) : home("Home_Svg") }
+                <p style={homeTextStyle(changeHomeIcon)}>Home</p>
             </article>
+
             <article 
                 onClick={() => handle_change_search_icon(setChangeHomeIcon, setChangeSearchIcon)}
                 onMouseOver={() => handle_mouseover_mouseout(1, colorStyles.active, !changeSearchIcon)} 
                 onMouseOut={() => handle_mouseover_mouseout(1, colorStyles.inActive, !changeSearchIcon)}
             >
-                { changeSearchIcon ? searchFilled("Search_Svg", {fill: searchTextStyle.color as CSSProperties} ) : search("Search_Svg") }
-                <p style={searchTextStyle}>Search</p>
+                { changeSearchIcon ? searchFilled("Search_Svg", {fill: searchTextStyle(changeSearchIcon).color as CSSProperties} ) : search("Search_Svg") }
+                <p style={searchTextStyle(changeSearchIcon)}>Search</p>
             </article>
+            
             {/* <article>
                 <IonIcon className='User_Ic' name='person-outline'/>
                 <p>Login</p>
@@ -96,10 +107,7 @@ function BottomSidebar() {
                         <div 
                             ref={boxRef} 
                             className='Create_Playlist_Folder_Box' 
-                            style={{
-                                visibility:"hidden",
-                                opacity: "0"
-                            }}
+                            style={createPlaylistFolderBox}
                         >
                             <button>
                                 <IonIcon className='Musical_Notes_Outline_Ic' name="musical-notes-outline" />

@@ -1,9 +1,10 @@
 :root {
     --Sidebar_Dashboard_Color: #121212;
     --Darkened_Label_Color: #282828;
-    --Black: #191414;
-    --Green: #1DB954;
-    --white: #fff;
+    --Black_Color: #191414;
+    --Green_Color: #1DB954;
+    --White_Color: #fff;
+    --Blue_Color: #3e63dd;
 }
 
 
@@ -33,10 +34,43 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    padding: 8px;
+    padding: 10px;
     display: flex;
-    /* cursor: ew-resize; */
-    /* display: flex; */
+    gap: 10px;
 }
 
 
+.Container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-color: #121212;
+    width: 300px;
+    height: 200px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px 0px var(--Blue_Color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+
+.Btn {
+    background-color: #3e63dd;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 200ms ease-in-out background-color;
+}
+
+
+.Btn:hover {
+    background-color: #5576e4;
+}

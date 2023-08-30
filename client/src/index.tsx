@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import "./styles/Main.css";
 import "./styles/Sidebar.css";
 import "./styles/Dashboard.css";
+import { RouterProvider } from 'react-router-dom';
+import router from './routes/Route';
 
 
 const root = ReactDOM.createRoot(
@@ -11,9 +12,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(        
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>
+    <RouterProvider router={router} />
+    // <React.StrictMode>
+    // </React.StrictMode>
 );
 
          

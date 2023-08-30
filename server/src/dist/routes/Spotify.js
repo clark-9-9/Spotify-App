@@ -12,8 +12,11 @@ router.get("/get-albums", PublicSpotifyApis_1.GetAlbums);
 router.get("/get-artists", PublicSpotifyApis_1.GetArtists);
 router.get("/get-random", PublicSpotifyApis_1.GetRandomURI);
 router.get("/login", AuthorizationCodeAuth_1.Login);
-router.get("/callback", AuthorizationCodeAuth_1.Callback);
-router.get("/get-token", AuthorizationCodeAuth_1.GetAccessToken);
-router.get("/refresh_token", AuthorizationCodeAuth_1.RefreshToken);
+router.post("/callback", AuthorizationCodeAuth_1.Callback);
 router.get("/get-playlists", PrivateSpotifyApis_1.GetCurrentUsersPlaylists);
+/*
+router.get("/callback", Callback);
+router.get("/get-token", GetAccessToken);
+router.get("/refresh_token", RefreshToken)
+*/
 exports.default = router;

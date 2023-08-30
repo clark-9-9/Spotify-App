@@ -15,20 +15,19 @@ const Spotify_js_1 = __importDefault(require("./routes/Spotify.js"));
 const NotFound_js_1 = __importDefault(require("./errors/NotFound.js"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const path_1 = __importDefault(require("path"));
+// import bodyParser from "body-parser";
 const app = (0, express_1.default)();
 const indexPath = path_1.default.resolve(__dirname, "./public/index.html");
-app.use(express_1.default.static(path_1.default.resolve(__dirname, "./public")));
+// app.use(express.static(path.resolve(__dirname, "./public"))); 
 app.use((0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
+// app.use(bodyParser.json());
 app.use("/", Spotify_js_1.default);
-app.get('/', (req, res) => {
-    res.sendFile(indexPath);
-});
-app.get('/home', (req, res) => {
-    res.send("<h1>hello world</h1>");
-});
+// app.get('/', (req:Request, res: Response) => {
+//     res.sendFile(indexPath);
+// });
 app.use(NotFound_js_1.default);
 const port = process.env.PORT || 3000;
 // const port = 3000;

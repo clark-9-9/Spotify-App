@@ -1,18 +1,17 @@
 
 
-
-
 .Sidebar {
     height: 100%;
-    width: 410px;
-    max-width: 470px;
+    min-width: 410px;
+    /* width: 410px; */
+    /* max-width: 470px; */
     /* min-width: 280px; */
-    min-width: 310px;
+    /* min-width: 310px; */
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    resize: horizontal;
-    overflow-x: auto; 
+    gap: 10px;
+    /* resize: horizontal; */
+    /* overflow-x: auto;  */
     /* border: 1px solid; */
 }
 
@@ -51,18 +50,23 @@ section.Top_Sidebar {
 
 .Top_Sidebar article:hover .Home_Svg, 
 .Top_Sidebar article:hover .Search_Svg,
-.Top_Sidebar article:hover .User_Ic,
 .Top_Sidebar article:hover p {
     fill: rgba(255, 255, 255);
     color: rgba(255, 255, 255);
 }
 
 
+/*
 .User_Ic {
     font-size: 24px;
     color: rgba(255, 255, 255, 0.7);
     transition: 200ms ease-in-out color;
 }
+
+.Top_Sidebar article:hover .User_Ic {
+    color: rgba(255, 255, 255);
+}
+*/
 
 
 section.Bottom_Sidebar {

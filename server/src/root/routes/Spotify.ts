@@ -3,8 +3,8 @@ import { GetAlbums, GetArtists, GetRandomURI } from "../controllers/PublicSpotif
 import { 
     Login, 
     Callback, 
-    RefreshToken, 
-    GetAccessToken
+    // RefreshToken, 
+    // GetAccessToken
 } from "../auth/AuthorizationCodeAuth";
 
 import {
@@ -19,10 +19,15 @@ router.get("/get-artists", GetArtists);
 router.get("/get-random", GetRandomURI);
 
 router.get("/login", Login);
+router.post("/callback", Callback);
+
+router.get("/get-playlists", GetCurrentUsersPlaylists);
+
+/*
 router.get("/callback", Callback);
 router.get("/get-token", GetAccessToken);
 router.get("/refresh_token", RefreshToken)
+*/
 
-router.get("/get-playlists", GetCurrentUsersPlaylists);
 
 export default router;

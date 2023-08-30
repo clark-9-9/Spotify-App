@@ -1,0 +1,8 @@
+
+
+.Dashboard {
+    height: 100%;
+    width: 100%;
+    background-color: var(--Sidebar_Dashboard_Color);   
+    border-radius: 8px;
+}

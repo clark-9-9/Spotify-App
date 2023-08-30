@@ -12,28 +12,27 @@ import spotifyRoutes from "./routes/Spotify.js";
 import NotFound from "./errors/NotFound.js";
 import cookieParser from "cookie-parser"; 
 import path from "path"; 
+// import bodyParser from "body-parser";
   
  
 const app: Express = express();
 const indexPath = path.resolve(__dirname, "./public/index.html");
 
-app.use(express.static(path.resolve(__dirname, "./public"))); 
+// app.use(express.static(path.resolve(__dirname, "./public"))); 
  
 
 app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
+// app.use(bodyParser.json());
 
 app.use("/", spotifyRoutes); 
 
-app.get('/', (req:Request, res: Response) => {
-    res.sendFile(indexPath);
-});
+// app.get('/', (req:Request, res: Response) => {
+//     res.sendFile(indexPath);
+// });
 
-app.get('/home', (req:Request, res: Response) => {
-    res.send("<h1>hello world</h1>");
-});
 
 
 app.use(NotFound);

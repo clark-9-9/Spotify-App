@@ -1,15 +1,23 @@
-import { RouterProvider } from 'react-router-dom';
-import router from './routes/Route';
-
-
+import { Sidebar } from './components/main/Sidebar';
+import { Dashboard } from './components/main/Dashboard';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
-  return ( 
-    <div className="Main">
-        <RouterProvider router={router} />
-    </div>
-  );
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem("access_token");
+        if(!token) navigate("/");
+    }, [navigate])
+ 
+    return ( 
+        <div className="Main">
+            <Sidebar />
+            <Dashboard />
+        </div>
+    );
 }
 
-export default App;
+export default App; 

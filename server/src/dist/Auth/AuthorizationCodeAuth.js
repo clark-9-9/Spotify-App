@@ -3,11 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetAccessToken = exports.RefreshToken = exports.Callback = exports.Login = void 0;
+exports.Callback = exports.Login = void 0;
 const node_querystring_1 = __importDefault(require("node:querystring"));
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = "http://localhost:8080/callback";
+// const REDIRECT_URI = process.env.REDIRECT_URI;
+// const REDIRECT_URI = "http://localhost:8080/callback";
+const REDIRECT_URI = "http://localhost:3000";
 function generateRandomString(length) {
     let text = '';
     let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -23,8 +25,8 @@ async function Login(req, res) {
     const queryParams = {
         response_type: 'code',
         client_id: CLIENT_ID,
-        scope: scope,
         redirect_uri: REDIRECT_URI,
+        scope: scope,
         state: state,
     };
     const url = node_querystring_1.default.stringify(queryParams);
@@ -33,81 +35,31 @@ async function Login(req, res) {
 }
 exports.Login = Login;
 async function Callback(req, res) {
-    const code = req.query.code || null;
-    const state = req.query.state || null;
-    // const storedState = req.cookies ? req.cookies[stateKey] : null;
+    const code = req.body.code;
     try {
-        if (state === null || code === null) {
-            res.redirect('/#' +
-                node_querystring_1.default.stringify({
-                    error: 'authorization_failed'
-                }));
-        }
-        else {
-            const tokenEndpoint = "https://accounts.spotify.com/api/token";
-            const authHeader = 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64');
-            const authOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "Authorization": authHeader
-                },
-                body: node_querystring_1.default.stringify({
-                    code: code,
-                    redirect_uri: REDIRECT_URI,
-                    grant_type: 'authorization_code',
-                }),
-            };
-            const response = await fetch(tokenEndpoint, authOptions);
-            const data = await response.json();
-            res.cookie('access_token', "access_token" in data ? data.access_token : null, { httpOnly: true });
-            res.cookie('refresh_token', "refresh_token" in data ? data.refresh_token : null, { httpOnly: true });
-            res.redirect("/");
-        }
+        const tokenEndpoint = 'https://accounts.spotify.com/api/token';
+        const authHeader = 'Basic ' + Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
+        const authOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': authHeader,
+            },
+            body: node_querystring_1.default.stringify({
+                code,
+                redirect_uri: REDIRECT_URI,
+                grant_type: 'authorization_code',
+            }),
+        };
+        const response = await fetch(tokenEndpoint, authOptions);
+        const data = await response.json();
+        res.cookie('access_token', data.access_token, { httpOnly: true });
+        res.cookie('refresh_token', data.refresh_token, { httpOnly: true });
+        res.status(200).json({ data });
     }
-    catch (err) {
-        console.error(err);
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
     }
 }
 exports.Callback = Callback;
-async function RefreshToken(req, res) {
-    const refresh_token = req.cookies.refresh_token;
-    if (!refresh_token)
-        return res.status(401).json({ error: 'Refresh token missing' });
-    const tokenEndpoint = "https://accounts.spotify.com/api/token";
-    const authHeader = 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64');
-    const body = `grant_type=refresh_token&refresh_token=${encodeURIComponent(refresh_token)}`;
-    const authOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": authHeader
-        },
-        body: body
-    };
-    try {
-        const response = await fetch(tokenEndpoint, authOptions);
-        const data = await response.json();
-        if ("access_token" in data) {
-            return res.status(200).json({
-                access_token: data.access_token,
-                refresh_token: data.refresh_token,
-                status: 200
-            });
-        }
-        else {
-            return res.status(401).json({ error: data.error, status: 401 });
-        }
-    }
-    catch (err) {
-        return res.status(500).json(err);
-    }
-}
-exports.RefreshToken = RefreshToken;
-async function GetAccessToken(req, res) {
-    const access_token = req.cookies.access_token;
-    if (!access_token)
-        return res.status(401).json({ error: 'Access token missing' });
-    res.status(200).json({ access_token });
-}
-exports.GetAccessToken = GetAccessToken;

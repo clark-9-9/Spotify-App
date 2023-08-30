@@ -1,24 +1,16 @@
-import { Fragment } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
-import { Sidebar } from "../components/main/Sidebar";
-// import { Dashboard } from "../components/main/Dashboard";
-
+import Login from "../pages/Login";
+import App from "../App";
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([ 
     {
         path: "/",
-        
+        element: <Login />
     },    
-
     {
         path: "/main",
-        element: (
-            <Fragment>
-                <Sidebar />
-                {/* <Dashboard /> */}
-            </Fragment>
-        )
+        element: <App />
     },    
     {
         path: "/home",
