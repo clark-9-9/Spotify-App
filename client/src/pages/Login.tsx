@@ -13,9 +13,9 @@ function Login() {
     const handle_login = () => {
         window.location.href = getCodeFromURL;
     }
-    
+     
     useEffect(() => {
-        const fetchAccessToken = async () => {
+        const fetchAccessToken = async (): Promise<void> => {
             try {
                 const callbackHeaders = {
                     method: 'POST',
@@ -31,6 +31,7 @@ function Login() {
                 if ("access_token" in data) {
                     localStorage.setItem("access_token", data.access_token);
                     localStorage.setItem("refresh_token", data.refresh_token);
+                    localStorage.setItem("expires_in", data.expires_in.toString());
                     navigate("/main");
                 } else {
                     window.location.href = getCodeFromURL;
@@ -45,8 +46,8 @@ function Login() {
 
     }, [code, navigate, token]);
 
-    return (
-        <div className="Container">
+    return (        
+        <div className="Container" style={{ display: !token ? "flex" : "none" }}>
             <button className="Btn" onClick={handle_login}>Login</button>
             <button className="Btn">Demo</button>
         </div>
@@ -55,30 +56,3 @@ function Login() {
 
 export default Login; 
 
-
-/* 
-
-const callbackHeaders = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ code: code })
-}
-
-fetch('/callback', callbackHeaders)
-    .then((res) => {
-        return res.json();
-    })
-    .then(({ data }: { data: ResponseAccessToken } | { data: ResponseErrorToken }) => {
-        if("error" in data) {
-            window.location.href = getCodeFromURL;   
-        } else {
-            console.log(data, "<---- then data");
-        }
-    })
-    .catch((err) => {
-        console.log(err, "<---- catch error");
-    });
-
-*/

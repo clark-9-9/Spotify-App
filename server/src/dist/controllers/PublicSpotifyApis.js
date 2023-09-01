@@ -55,7 +55,7 @@ async function GetArtists(req, res) {
 }
 exports.GetArtists = GetArtists;
 async function GetRandomURI(req, res) {
-    const randomEndpoint = process.env.GET_ALBUM_TRACKS;
+    const randomEndpoint = "https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy/tracks";
     try {
         const getToken = await (0, ClientCredentialsAuth_1.GetToken)();
         if (getToken.error)

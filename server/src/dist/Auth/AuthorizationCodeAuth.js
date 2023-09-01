@@ -53,8 +53,11 @@ async function Callback(req, res) {
         };
         const response = await fetch(tokenEndpoint, authOptions);
         const data = await response.json();
-        res.cookie('access_token', data.access_token, { httpOnly: true });
-        res.cookie('refresh_token', data.refresh_token, { httpOnly: true });
+        if (!('error' in data)) {
+            res.cookie('access_token', data.access_token, { httpOnly: true });
+            res.cookie('refresh_token', data.refresh_token, { httpOnly: true });
+            res.cookie('expires_in', data.expires_in, { httpOnly: true });
+        }
         res.status(200).json({ data });
     }
     catch (error) {

@@ -62,11 +62,12 @@ async function Callback(req: Request, res: Response) {
         };
 
         const response = await fetch(tokenEndpoint, authOptions);
-        const data = await response.json();
-        
-        res.cookie('access_token', data.access_token, { httpOnly: true });
-        res.cookie('refresh_token', data.refresh_token, { httpOnly: true });
-
+        const data: ResponseAccessToken | ResponseErrorToken = await response.json();
+        if(!('error' in data)) {
+            res.cookie('access_token', data.access_token, { httpOnly: true });
+            res.cookie('refresh_token', data.refresh_token, { httpOnly: true });
+            res.cookie('expires_in', data.expires_in, { httpOnly: true });
+        }  
         res.status(200).json({ data });
     } catch (error) {
         console.error(error);
@@ -169,7 +170,5 @@ async function GetAccessToken(req: Request, res:Response) {
 export {
     Login,
     Callback,
-    // RefreshToken, 
-    // GetAccessToken
 };
 

@@ -62,7 +62,7 @@ async function GetArtists(req: Request, res: Response) {
 
 async function GetRandomURI(req: Request, res: Response) {
 
-    const randomEndpoint = process.env.GET_ALBUM_TRACKS as RequestInfo;
+    const randomEndpoint = "https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy/tracks";
 
     try {
         const getToken = await GetToken();

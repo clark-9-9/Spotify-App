@@ -6,3 +6,63 @@
     background-color: var(--Sidebar_Dashboard_Color);   
     border-radius: 8px;
 }
+
+
+
+
+/* ---- tracks ---- */
+
+
+.Tracks_Container {
+    width: 100%;
+    height: 100%;
+    /* background-image: linear-gradient(to bottom, #50399a, #49348c, #422f7e, #3b2a70, #342563, #2e2258, #29204d, #241d42, #1f1b36, #1b182a, #17151e, #121212); */
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+}
+
+
+.Header_Rectangle_Container {
+    width: 100%;
+    height: 340px;
+    /* background-image: linear-gradient(to bottom, #132847, #142b4e, #142f56, #15325d, #163665); */
+    /* background-image: linear-gradient(to bottom, #4e389a, #513f90, #3d2c78, #352667, #2d2057); */
+    background-image: linear-gradient(to bottom, #50399a, #49348c, #422f7e, #3b2a70, #342563, #2e2258, #29204d, #241d42, #1f1b36, #1b182a, #17151e, #121212);
+    box-shadow: 5px 0 30px #624ea4;
+    padding: 25px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    align-items: flex-end;
+}
+
+
+.Header_Content {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 25px;
+}
+
+
+
+.Profile_Image {
+    height: 232px;
+    width: 232px;
+    box-shadow: 0 0 15px #132847;
+}
+
+
+.Song_Titles {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+.Song_Titles p:nth-child(2) {
+    font-size: 4rem;
+}

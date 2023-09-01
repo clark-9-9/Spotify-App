@@ -18,7 +18,7 @@ const searchTextStyle = (changeSearchIcon: boolean): CSSProperties => {
     };
 }
 
-const SearchInputStyle = (shrinkGrowInput: boolean): CSSProperties => {
+const searchInputStyle = (shrinkGrowInput: boolean): CSSProperties => {
     return {
         width: shrinkGrowInput ? "200px" : "0",
         paddingLeft: shrinkGrowInput ? "35px" : "0",
@@ -37,7 +37,7 @@ const createPlaylistFolderBox: CSSProperties = {
 
 export { 
     colorStyles,
-    SearchInputStyle, 
+    searchInputStyle, 
     createPlaylistFolderBox,
     homeTextStyle,
     searchTextStyle 
