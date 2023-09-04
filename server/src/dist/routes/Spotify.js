@@ -11,6 +11,7 @@ const router = express_1.default.Router();
 router.get("/login", AuthorizationCodeAuth_1.Login);
 router.post("/callback", AuthorizationCodeAuth_1.Callback);
 //- user data
-router.get("/get-tracks", PrivateSpotifyApis_1.GetCurrentUsersTracks);
-router.get("/get-playlists", PrivateSpotifyApis_1.GetCurrentUsersPlaylists);
+router.post("/get-tracks", PrivateSpotifyApis_1.GetCurrentUsersTracks);
+router.post("/get-playlists", PrivateSpotifyApis_1.GetCurrentUsersPlaylists);
+router.post("/refresh-token", AuthorizationCodeAuth_1.RefreshToken);
 exports.default = router;

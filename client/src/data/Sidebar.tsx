@@ -1,7 +1,7 @@
 import {
     playlists, 
     songs, 
-    madeForYou, 
+    // madeForYou, 
     artists, albums
 } from "../svg/Sidebar";
 
@@ -27,11 +27,6 @@ const userCollections = [
         to: "/main/collection/albums",
         text: "Albums",
         icon: albums("Collection_Svg Albums")
-    },
-    {
-        to: "/*",
-        text: "Made For You",
-        icon: madeForYou("Collection_Svg Made_For_You")
     },
 ]
 

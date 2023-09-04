@@ -1,22 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../pages/Login";
 import App from "../App";
 import Tracks from "../components/Collections/Tracks";
 import Playlists from "../components/Collections/Playlists";
 import Albums from "../components/Collections/Albums";
 import Artists from "../components/Collections/Artists";
+import Login from "../pages/Login";
 
 const error = <h3>No route matches to {window.location.pathname}</h3>;
-
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([ 
     {
         path: "/",
-        element: <Login /> 
-    },    
+        element: <Login />
+    },
     {
         path: "/main",
-        element: <App />,
+        element: <App /> ,
         children: [
             {
                 path: "collection/tracks",

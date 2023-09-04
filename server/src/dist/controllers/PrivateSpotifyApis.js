@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetCurrentUsersPlaylists = exports.GetCurrentUsersTracks = void 0;
 async function GetCurrentUsersTracks(req, res) {
-    const accessToken = req.cookies.access_token;
+    // const accessToken = req.cookies.access_token;
+    const accessToken = req.body.access_token;
     if (!accessToken)
         return res.status(401).json({ error: 'Access token missing' });
     try {
@@ -22,7 +23,8 @@ async function GetCurrentUsersTracks(req, res) {
 }
 exports.GetCurrentUsersTracks = GetCurrentUsersTracks;
 async function GetCurrentUsersPlaylists(req, res) {
-    const accessToken = req.cookies.access_token;
+    // const accessToken = req.cookies.access_token;
+    const accessToken = req.body.access_token;
     if (!accessToken)
         return res.status(401).json({ error: 'Access token missing' });
     try {

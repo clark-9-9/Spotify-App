@@ -3,6 +3,7 @@ import express, { Router } from "express";
 import { 
     Login, 
     Callback, 
+    RefreshToken
 } from "../auth/AuthorizationCodeAuth";
 
 import { 
@@ -19,8 +20,8 @@ router.post("/callback", Callback);
 
 
 //- user data
-router.get("/get-tracks", GetCurrentUsersTracks);
-router.get("/get-playlists", GetCurrentUsersPlaylists);
-
+router.post("/get-tracks", GetCurrentUsersTracks);
+router.post("/get-playlists", GetCurrentUsersPlaylists);
+router.post("/refresh-token", RefreshToken);
 
 export default router;

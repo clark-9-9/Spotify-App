@@ -1,21 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ResponseAccessToken, ResponseErrorToken } from "../types/Login";
 import { useNavigate } from "react-router-dom";
-import type { ResponseAccessToken, ResponseErrorToken } from "../types/Login";
-
 
 
 function Login() {
     const code = new URLSearchParams(window.location.search).get("code");
-    const navigate = useNavigate();
+    const storedToken = localStorage.getItem("access_token");
     const getCodeFromURL = "http://localhost:8080/login";
-    const token = localStorage.getItem("access_token");
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [accessToken, setAccessToken] = useState<string>();
+    const navigate = useNavigate();
+
 
     const handle_login = () => {
         window.location.href = getCodeFromURL;
     }
-     
+
+
     useEffect(() => {
-        const fetchAccessToken = async (): Promise<void> => {
+        const handle_fetch_access_token = async (): Promise<void> => {
             try {
                 const callbackHeaders = {
                     method: 'POST',
@@ -27,29 +31,33 @@ function Login() {
                 
                 const response = await fetch('/callback', callbackHeaders);
                 const{ data }: {data: ResponseAccessToken | ResponseErrorToken} = await response.json();
-                
-                if ("access_token" in data) {
+                    
+                if (data && "access_token" in data) {
                     localStorage.setItem("access_token", data.access_token);
                     localStorage.setItem("refresh_token", data.refresh_token);
-                    localStorage.setItem("expires_in", data.expires_in.toString());
-                    navigate("/main");
+                    setAccessToken(data.access_token);
                 } else {
-                    window.location.href = getCodeFromURL;
+                    window.location.href = "/";
                 }
+
             } catch (error) {
                 console.error(error);
             }
         };
     
-        if(code) fetchAccessToken();
-        if(token) navigate("/main");
+        if(code) handle_fetch_access_token();       
+    }, [code]);
 
-    }, [code, navigate, token]);
+
+    useEffect(() => {
+        if(storedToken) navigate("/main");
+    }, [storedToken, navigate])
+
 
     return (        
-        <div className="Container" style={{ display: !token ? "flex" : "none" }}>
+        <div className="Container" >
             <button className="Btn" onClick={handle_login}>Login</button>
-            <button className="Btn">Demo</button>
+            {/* <button className="Btn">Demo</button> */}
         </div>
     )
 }

@@ -6,8 +6,13 @@ export interface ResponseAccessToken {
     "refresh_token": string;
 }
  
-
 export interface ResponseErrorToken {
     "error": string;
     "error_description": string;
+}
+
+
+export interface RefreshTokenResponseType {
+    "access_token": string;
+    "expires_in": number;
 }

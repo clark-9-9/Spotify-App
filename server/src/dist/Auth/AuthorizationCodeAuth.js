@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Callback = exports.Login = void 0;
+exports.RefreshToken = exports.Callback = exports.Login = void 0;
 const node_querystring_1 = __importDefault(require("node:querystring"));
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -56,7 +56,6 @@ async function Callback(req, res) {
         if (!('error' in data)) {
             res.cookie('access_token', data.access_token, { httpOnly: true });
             res.cookie('refresh_token', data.refresh_token, { httpOnly: true });
-            res.cookie('expires_in', data.expires_in, { httpOnly: true });
         }
         res.status(200).json({ data });
     }
@@ -66,3 +65,36 @@ async function Callback(req, res) {
     }
 }
 exports.Callback = Callback;
+async function RefreshToken(req, res) {
+    const refresh_token = req.body.refresh_token;
+    if (!refresh_token)
+        return res.status(401).json({ error: 'Refresh token missing' });
+    const tokenEndpoint = "https://accounts.spotify.com/api/token";
+    const authHeader = 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64');
+    const body = `grant_type=refresh_token&refresh_token=${encodeURIComponent(refresh_token)}`;
+    const authOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": authHeader
+        },
+        body: body
+    };
+    try {
+        const response = await fetch(tokenEndpoint, authOptions);
+        const data = await response.json();
+        if ("access_token" in data) {
+            res.status(200).json({
+                access_token: data.access_token,
+                expiries_in: data.expires_in
+            });
+        }
+        else {
+            res.status(401).json({ data });
+        }
+    }
+    catch (error) {
+        return res.status(500).json(error);
+    }
+}
+exports.RefreshToken = RefreshToken;

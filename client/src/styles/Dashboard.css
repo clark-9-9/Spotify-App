@@ -13,22 +13,41 @@
 /* ---- tracks ---- */
 
 
-.Tracks_Container {
+section.Tracks_Container {
     width: 100%;
     height: 100%;
-    /* background-image: linear-gradient(to bottom, #50399a, #49348c, #422f7e, #3b2a70, #342563, #2e2258, #29204d, #241d42, #1f1b36, #1b182a, #17151e, #121212); */
-    /* overflow-y: scroll; */
+    padding-bottom: 1rem;
+    overflow-y: scroll;
     overflow-x: hidden;
+    scrollbar-gutter: stable;
 }
 
 
-.Header_Rectangle_Container {
+.Tracks_Container::-webkit-scrollbar {
+    display: none;
+    width: 1vw; 
+}
+
+.Tracks_Container::-webkit-scrollbar-thumb {
+    background-color: #7775; 
+}
+
+.Tracks_Container::-webkit-scrollbar-thumb:hover {
+    background-color: #777; 
+}
+  
+.Tracks_Container::-webkit-scrollbar-track {
+    background-color: transparent; 
+}
+
+
+article.Header_Rectangle_Container {
     width: 100%;
     height: 340px;
     /* background-image: linear-gradient(to bottom, #132847, #142b4e, #142f56, #15325d, #163665); */
     /* background-image: linear-gradient(to bottom, #4e389a, #513f90, #3d2c78, #352667, #2d2057); */
     background-image: linear-gradient(to bottom, #50399a, #49348c, #422f7e, #3b2a70, #342563, #2e2258, #29204d, #241d42, #1f1b36, #1b182a, #17151e, #121212);
-    box-shadow: 5px 0 30px #624ea4;
+    box-shadow: 5px 0 500px 0 #372868;
     padding: 25px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -40,10 +59,8 @@
 .Header_Content {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     gap: 25px;
 }
-
 
 
 .Profile_Image {
@@ -59,10 +76,155 @@
     font-size: 14px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 15px;
 }
 
 
 .Song_Titles p:nth-child(2) {
     font-size: 4rem;
 }
+
+
+@media (width < 1200px) {
+    .Song_Titles p:nth-child(2) {
+        font-size: 3rem;
+    }
+}
+
+
+article.Pause_Play_Like_Follow_Container {
+    margin-top: 3rem;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+
+
+.Pause_play_Btn {
+    background-color: transparent;
+    overflow: hidden;
+    outline: none;
+    border: none;
+}
+
+
+.Pause_play_Btn [name="play"], 
+.Pause_play_Btn [name="pause"] {
+    background-color: var(--Green_Color);
+    padding: 1rem;
+    font-size: 1.5rem;
+    /* padding-left: 1.2rem; */
+    /* padding-top: 1.1rem; */
+    border-radius: 50%;
+}
+
+
+
+.Follow_Liked_Btn [name="heart"] {
+    font-size: 2rem;
+    color: var(--Green_Color);
+}
+
+
+.Pause_Play_Like_Follow_Container [name="ellipsis-horizontal"] {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+article.List_Of_Songs_Container {
+    margin-top: 3rem;
+    padding: 0 25px;
+}
+
+
+.Header_List_Of_Songs {
+    width: 100%;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    padding: 0 16px;
+    padding-bottom: 10px;
+    display: grid;
+    grid-template-columns: [index] 30px [first] 6fr [var1] 4fr [var2] 3fr [last] minmax(120px, 1fr);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.Header_List_Of_Songs p:nth-child(5)  {
+    text-align: right;
+}
+
+
+.Songs_List {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* gap: 20px; */
+}
+
+
+.Song {
+    width: 100%;
+    padding: 10px 16px;
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    font-size: 15px;
+    transition: 150ms ease-in-out;
+    transition-property: transform, color, background-color;
+    display: grid;
+    grid-template-columns: [index] 30px [first] 6fr [var1] 4fr [var2] 3fr [last] minmax(120px, 1fr);
+    align-items: center;
+    cursor: pointer;
+}
+
+
+.Song:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255);
+    transform: scale(1.01);
+}
+
+
+.Song img {
+    height: 40px;
+    width: 40px;
+}
+
+
+.Song .Second_Column {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.Song .Second_Column span {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.Song .Second_Column p:nth-child(1) {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+}
+
+
+.Song .Second_Column p:nth-child(2) {
+    font-size: 14px;
+
+}
+
+.Last_Column {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+
+

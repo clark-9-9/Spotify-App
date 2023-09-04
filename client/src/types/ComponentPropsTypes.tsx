@@ -1,3 +1,4 @@
+import { Item } from "./Tracks";
 
 
 export interface TopSidebarTypes {
@@ -13,3 +14,7 @@ export interface TopSidebarTypes {
 }
  
 
+export interface SongsPropsTypes {
+    item: Item, 
+    index: number
+}

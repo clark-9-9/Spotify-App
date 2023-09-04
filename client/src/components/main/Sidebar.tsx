@@ -1,8 +1,8 @@
 // import IonIcon from '@reacticons/ionicons';
-import React, { useState, CSSProperties } from 'react';
-import type { TopSidebarTypes } from '../../types/Sidebar';
-import { NavLink } from 'react-router-dom';
+import React, { useState, CSSProperties,  } from 'react';
+import { NavLink,  } from 'react-router-dom';
 import { userCollections } from '../../data/Sidebar';
+import type { TopSidebarTypes } from '../../types/ComponentPropsTypes';
 
 import {
     home, 
@@ -101,9 +101,8 @@ function BottomSidebar() {
 
 function UserLibrary() {
     // const[shrinkGrowInput, setShrinkGrowInput] = useState<boolean>(false);
-    // const taylorSwift = "https://media1.popsugar-assets.com/files/thumbor/hnVKqXE-xPM5bi3w8RQLqFCDw_E/475x60:1974x1559/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/09/09/023/n/1922398/9f849ffa5d76e13d154137.01128738_/i/Taylor-Swift.jpg";
 
-
+    
     return (
         <section className='User_Library'>
             {/* User Library 1 */}
@@ -113,7 +112,11 @@ function UserLibrary() {
                     {
                         userCollections.map((collection, index) => {
                             return (
-                                <NavLink key={index} to={collection.to} className='Collection'>
+                                <NavLink 
+                                    key={index} 
+                                    to={collection.to} 
+                                    className='Collection'
+                                >
                                     {collection.icon}
                                     <p>{collection.text}</p>
                                 </NavLink>
