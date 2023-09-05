@@ -16,3 +16,11 @@ export interface RefreshTokenResponseType {
     "access_token": string;
     "expires_in": number;
 }
+
+
+export interface ExpiredToken_BadRequest_BadOAuth {
+    error: {
+        status: number;
+        message: string;    
+    }
+}

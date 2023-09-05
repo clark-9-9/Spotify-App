@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 
 
 async function GetCurrentUsersTracks(req: Request, res: Response) { 
-    // const accessToken = req.cookies.access_token;
     const accessToken = req.body.access_token;
     if (!accessToken) return res.status(401).json({ error: 'Access token missing' });
 
@@ -24,7 +23,6 @@ async function GetCurrentUsersTracks(req: Request, res: Response) {
 }
 
 async function GetCurrentUsersPlaylists(req: Request, res: Response) {
-    // const accessToken = req.cookies.access_token;
     const accessToken = req.body.access_token;
     if (!accessToken) return res.status(401).json({ error: 'Access token missing' });
 

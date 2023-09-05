@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ResponseAccessToken, ResponseErrorToken } from '../types/Login';
+import { ResponseAccessToken, ResponseErrorToken } from '../types/FetchData';
 
 
 
