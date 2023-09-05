@@ -19,6 +19,8 @@ function Playlists() {
 
     return (
         <section className='Playlists_Container'>
+            <h3>Playlists</h3>
+
             <ul className='List_Of_Playlists'>
                 {
                     (!playlists || !playlists[0]) && <span className="loader"></span>

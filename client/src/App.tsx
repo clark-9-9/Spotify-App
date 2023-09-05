@@ -8,7 +8,7 @@ function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!storedToken) navigate("/")
+        if(!storedToken) navigate("/");
     }, [storedToken, navigate]) 
     
     return (

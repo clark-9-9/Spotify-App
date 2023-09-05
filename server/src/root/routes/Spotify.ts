@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-// import { GetAlbums, GetArtists, GetRandomURI } from "../controllers/PublicSpotifyApis";
+
 import { 
     Login, 
     Callback, 
@@ -9,6 +9,7 @@ import {
 import { 
     GetCurrentUsersPlaylists, 
     GetCurrentUsersTracks,
+    GetCurrentUsersFollowing
 } from "../controllers/PrivateSpotifyApis";
 
 
@@ -17,11 +18,12 @@ const router: Router = express.Router();
 
 router.get("/login", Login);
 router.post("/callback", Callback);
+router.post("/refresh-token", RefreshToken);
 
 
 //- user data
 router.post("/get-tracks", GetCurrentUsersTracks);
 router.post("/get-playlists", GetCurrentUsersPlaylists);
-router.post("/refresh-token", RefreshToken);
+router.post("/get-artists", GetCurrentUsersFollowing);
 
 export default router;
