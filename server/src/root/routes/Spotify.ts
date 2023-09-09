@@ -12,6 +12,12 @@ import {
     GetCurrentUsersFollowing
 } from "../controllers/PrivateSpotifyApis";
 
+import { 
+    GetArtist, 
+    GetArtistTopTrack, 
+    GetPlaylist 
+} from "../controllers/PublicSpotifyApis";
+
 
 const router: Router = express.Router();
 
@@ -25,5 +31,12 @@ router.post("/refresh-token", RefreshToken);
 router.post("/get-tracks", GetCurrentUsersTracks);
 router.post("/get-playlists", GetCurrentUsersPlaylists);
 router.post("/get-artists", GetCurrentUsersFollowing);
+
+
+//- single api
+router.post("/get-playlist", GetPlaylist);
+router.post("/get-artist", GetArtist);
+router.post("/get-artist-tracks", GetArtistTopTrack);
+
 
 export default router;

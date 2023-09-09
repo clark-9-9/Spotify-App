@@ -16,6 +16,13 @@
 }
 
 
+@media(width < 1000px) {
+    /* .Sidebar {
+        display: none;
+    } */
+}
+
+
 section.Top_Sidebar {
     background-color: var(--Sidebar_Dashboard_Color);
     /* padding: 20px 20px; */

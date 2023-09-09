@@ -1,14 +1,18 @@
 import { Sidebar } from '../components/main/Sidebar'
 import { Dashboard } from '../components/main/Dashboard'
+import MainProvider from '../context/MainProvider'
 
 
 
 function Main() {
+
     return (
-        <div className="Main">
-            <Sidebar />
-            <Dashboard />
-        </div>
+        <MainProvider>
+            <div className="Main">
+                <Sidebar />
+                <Dashboard />
+            </div>
+        </MainProvider>
     )    
 }
 

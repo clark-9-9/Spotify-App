@@ -36,7 +36,7 @@
 /* ---- Tracks ---- */
 
 
-section.Tracks_Container {
+section.Tracks_Container, section.Single_Item_Container {
     width: 100%;
     height: 100%;
     padding-bottom: 1rem;
@@ -46,7 +46,8 @@ section.Tracks_Container {
 }
 
 
-.Tracks_Container::-webkit-scrollbar {
+.Tracks_Container::-webkit-scrollbar,
+.Single_Item_Container::-webkit-scrollbar {
     display: none;
     width: 1vw; 
 }
@@ -90,6 +91,7 @@ article.Header_Rectangle_Container {
     height: 232px;
     width: 232px;
     box-shadow: 0 0 15px #132847;
+    object-fit: cover;
 }
 
 
@@ -104,13 +106,13 @@ article.Header_Rectangle_Container {
 
 
 .Song_Titles p:nth-child(2) {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 
-@media (width < 1200px) {
+@media(width < 1200px) {
     .Song_Titles p:nth-child(2) {
-        font-size: 3rem;
+        font-size: 2rem;
     }
 }
 
@@ -127,10 +129,8 @@ article.Pause_Play_Like_Follow_Container {
 
 .Pause_play_Btn {
     background-color: transparent;
-    overflow: hidden;
     outline: none;
     border: none;
-    transition: 150ms ease-in-out transform;
 }
 
 
@@ -139,33 +139,45 @@ article.Pause_Play_Like_Follow_Container {
     background-color: var(--Green_Color);
     padding: 1rem;
     font-size: 1.5rem;
-    /* padding-left: 1.2rem; */
-    /* padding-top: 1.1rem; */
     border-radius: 50%;
     cursor: pointer;
+    transition: 150ms ease-in-out transform;
 }
+
+
+.Pause_play_Btn [name="pause"] {
+    display: none !important;
+}
+
 
 .Follow_Liked_Btn {
     transition: 150ms ease-in-out;
-    transition-property: transform, border;
 }
 
 
 .Follow {
     display: none;
     background-color: transparent;
-    padding: 6px 14px;
+    padding: 8px 14px;
     border-radius: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: inherit;
+    font-size: 15px;
     cursor: pointer;
-    
 }
+
+
+.Follow:hover {
+    border-color: white;
+    transform: scale(1.05);
+}
+
 
 .Follow_Liked_Btn [name="heart"] {
     font-size: 2rem;
     color: var(--Green_Color);
     cursor: pointer;
+    transition: 150ms ease-in-out transform;
 }
 
 
@@ -176,16 +188,14 @@ article.Pause_Play_Like_Follow_Container {
     cursor: pointer;
 }
 
-.Pause_play_Btn:hover,
-.Follow_Liked_Btn:hover,
-.Follow_Liked_Btn [name="heart"]:hover,
-[name="ellipsis-horizontal"]:hover {
+
+.Pause_play_Btn [name="play"]:hover, 
+.Pause_play_Btn [name="pause"]:hover, 
+[name="ellipsis-horizontal"]:hover,
+.Follow_Liked_Btn [name="heart"]:hover {
     transform: scale(1.09);
 }
 
-.Follow_Liked_Btn:hover span {
-    border-color: white;
-}
 
 article.List_Of_Songs_Container {
     margin-top: 3rem;
@@ -200,8 +210,21 @@ article.List_Of_Songs_Container {
     padding: 0 16px;
     padding-bottom: 10px;
     display: grid;
-    grid-template-columns: [index] 30px [first] 6fr [var1] 4fr [var2] 3fr [last] minmax(120px, 1fr);
+    grid-template-columns: [first] 30px [second] 6fr [third] 4fr [fourth] 3fr [fifth] minmax(120px, 1fr);
+    gap: 5px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+@media(width < 1200px) {
+    .Header_List_Of_Songs {
+        grid-template-columns: [first] 30px [second] 7fr [third] 5fr [fifth] minmax(80px, 1fr);
+    }
+
+
+    .Header_List_Of_Songs p:nth-child(4) {
+        display: none;
+    }
 }
 
 
@@ -211,7 +234,7 @@ article.List_Of_Songs_Container {
 
 
 .Songs_List {
-    width: 100%;
+    width: 100%; 
     margin-top: 20px;
     list-style: none;
     display: flex;
@@ -220,29 +243,66 @@ article.List_Of_Songs_Container {
 }
 
 
-.Song {
+.Single_Item_Container .Songs_List label[for="See_More"] {
+    width: max-content;
+    margin-top: 1rem;
+    margin-left: 10px;
+    color: rgb(100, 100, 214);
+    cursor: pointer;
+}
+
+
+.Song, .Artist_Song {
     width: 100%;
     padding: 10px 16px;
     color: rgba(255, 255, 255, 0.7);
     border-radius: 4px;
     font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
     transition: 150ms ease-in-out;
     transition-property: transform, color, background-color;
     display: grid;
-    grid-template-columns: [index] 30px [first] 6fr [var1] 4fr [var2] 3fr [last] minmax(120px, 1fr);
+    grid-template-columns: [first] 30px [second] 6fr [third] 4fr [fourth] 3fr [fifth] minmax(120px, 1fr);
     align-items: center;
-    cursor: pointer;
+    gap: 10px;
+}
+
+/* 
+.Artist_Song {
+    grid-template-columns: [first] 30px [second] 4fr [third] 2fr [fourth] minmax(120px,1fr);
+} 
+*/
+
+
+@media(width < 1200px) {
+    .Song {
+        font-size: 14px;
+        grid-template-columns: [first] 30px [second] 7fr [third] 5fr [fifth] minmax(80px, 1fr);
+    }
+
+    .Fourth_Column {
+        display: none;
+    }
 }
 
 
-.Song:hover {
+.Song:hover, .Artist_Song:hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255);
     transform: scale(1.01);
 }
 
 
-.Song img {
+.Song div, .Song div span, .Song div span p,
+.Artist_Song div, .Artist_Song div span, .Artist_Song div span p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;  
+}
+
+
+.Song img, .Artist_Song img {
     height: 40px;
     width: 40px;
     object-fit: cover;
@@ -319,8 +379,10 @@ article.List_Of_Songs_Container {
 .Playlist_List {
     padding: 10px 15px;
     border-radius: 4px;
+    text-decoration: none;
     cursor: pointer;
-    transition: 150ms ease-in-out transform;
+    transition: 150ms ease-in-out ;
+    transition-property: transform, background-color;
     display: flex;
     gap: 15px;
     align-items: center;    
@@ -329,7 +391,7 @@ article.List_Of_Songs_Container {
 
 .Playlist_List:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    transform: scale(1.01);
+    transform: translateY(-3px);
 }
 
 
@@ -396,6 +458,7 @@ article.List_Of_Songs_Container {
     list-style: none;
     cursor: pointer;
     border-radius: 6px;
+    text-decoration: none;
     transition: 200ms ease-in-out background-color;
     display: flex;
     flex-direction: column;

@@ -1,10 +1,13 @@
 
 
 
-
 function Albums() {
+
+
     return (
-        <div>Albums</div>
+        <section>
+            Albums
+        </section>
     )
 }
 

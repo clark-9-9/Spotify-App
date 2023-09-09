@@ -1,16 +1,21 @@
 import { NavigateFunction } from "react-router-dom";
-import type { Item, RootTracks } from "../types/Tracks";
+import type { RootTracks } from "../types/Tracks";
 import type { ExpiredToken_BadRequest_BadOAuth } from "../types/FetchData";
 
 interface FetchTracksParamTypes {
     storedToken: string | null,
     navigate: NavigateFunction,
-    setTracks: React.Dispatch<React.SetStateAction<RootTracks[]>>
+    setTracks: React.Dispatch<React.SetStateAction<RootTracks[]>>,
 }
 
 
 const handle_fetch_tracks = async (
-    {storedToken, navigate, setTracks}: FetchTracksParamTypes
+    {
+        storedToken, 
+        navigate, 
+        setTracks, 
+    }: FetchTracksParamTypes
+
 ) => {
     const response = await fetch("/get-tracks", {
         method: "POST",
@@ -58,13 +63,17 @@ const handle_format_duration = (duration: number): FormatDuration => {
 }
 
 
-const handle_display_duration = (item: Item): string => {
+const handle_display_duration = (time: number | null): string | null => {
     let str = "";
-    const duration = handle_format_duration(item.track.duration_ms);
+    if(!time) return null;
+
+    let duration: FormatDuration = handle_format_duration(time);
     if(duration.hours !== 0) str += duration.hours + ":";
     if(duration.minutes !== 0) str += duration.minutes + ":";
     if(duration.seconds < 10) str += 0;
     if(duration.seconds !== 0) str += duration.seconds;
+    else str += "0";
+    
     return str
 }
 

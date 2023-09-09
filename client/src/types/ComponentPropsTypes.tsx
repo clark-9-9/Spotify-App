@@ -1,4 +1,5 @@
 import { Item } from "./Tracks";
+import { Track } from "./ArtistTopTrack";
 
 
 export interface TopSidebarTypes {
@@ -15,6 +16,8 @@ export interface TopSidebarTypes {
  
 
 export interface SongsPropsTypes {
-    item: Item, 
-    index: number
-}
+    index: number, 
+    item?: Item, 
+    track?: Track, 
+} 
+
