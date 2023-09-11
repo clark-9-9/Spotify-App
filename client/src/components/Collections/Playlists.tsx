@@ -1,6 +1,6 @@
 import type { RootPlayLists, Item } from "../../types/Playlists";
 import { useEffect, useState, useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handle_fetch_playlists } from "../../handler/Playlists";
 import { MainContext } from "../../context/MainProvider";
 
@@ -33,7 +33,7 @@ function Playlists() {
                 {
                     (playlists && playlists[0]) && playlists[0].items.map((item: Item) => {
                         return (
-                            <NavLink
+                            <Link
                                 to={`/main/collection/single/${item.id}?type=playlist`} 
                                 key={item.id}
                                 className='Playlist_List' 
@@ -44,7 +44,7 @@ function Playlists() {
                                     <p>{item.name}</p>
                                     <p>Playlist . {item.owner.display_name}</p>
                                 </div>
-                            </NavLink>
+                            </Link>
                         )
                     })
                 }

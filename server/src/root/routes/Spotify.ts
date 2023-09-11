@@ -9,10 +9,12 @@ import {
 import { 
     GetCurrentUsersPlaylists, 
     GetCurrentUsersTracks,
-    GetCurrentUsersFollowing
+    GetCurrentUsersFollowing,
+    GetUserSavedAlbums
 } from "../controllers/PrivateSpotifyApis";
 
 import { 
+    GetAlbum,
     GetArtist, 
     GetArtistTopTrack, 
     GetPlaylist 
@@ -31,12 +33,13 @@ router.post("/refresh-token", RefreshToken);
 router.post("/get-tracks", GetCurrentUsersTracks);
 router.post("/get-playlists", GetCurrentUsersPlaylists);
 router.post("/get-artists", GetCurrentUsersFollowing);
-
+router.post("/get-albums", GetUserSavedAlbums);
 
 //- single api
 router.post("/get-playlist", GetPlaylist);
 router.post("/get-artist", GetArtist);
 router.post("/get-artist-tracks", GetArtistTopTrack);
+router.post("/get-album", GetAlbum);
 
 
 export default router;

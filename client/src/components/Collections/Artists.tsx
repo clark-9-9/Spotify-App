@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Item, RootArtists } from "../../types/Artists";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handle_fetch_artists } from "../../handler/Artists";
 import { MainContext } from "../../context/MainProvider";
 
@@ -35,7 +35,7 @@ function Artists() {
                 {
                     (artists && artists[0]) && artists[0].artists.items.map((item: Item, index) => {
                         return (
-                            <NavLink 
+                            <Link 
                                 to={`/main/collection/single/${item.id}?type=artist`}
                                 className="Artist_List" 
                                 key={item.id}
@@ -45,7 +45,7 @@ function Artists() {
                                     <p>{item.name}</p>    
                                     <p>Profile</p>    
                                 </div>
-                            </NavLink>
+                            </Link>
                         )
                     })
                 }                

@@ -3,18 +3,17 @@ import { RootSinglePlaylist } from "../types/SinglePlaylist";
 import { RootSingleArtist } from "../types/SingleArtist";
 import { ExpiredToken_BadRequest_BadOAuth } from "../types/FetchData";
 import { RootArtistTopTracks } from "../types/ArtistTopTrack";
+import { RootSingleAlbum } from "../types/SingleAlbum";
 
 
 
-
-interface GetSingle_Playlist_Artist_ArtistAlbum {
+interface GetSingle_Playlist_Artist_ArtistAlbum_AlbumTracks {
     id: string | undefined;
     storedToken: string | null;
     navigate: NavigateFunction;
-    setSingleData: React.Dispatch<React.SetStateAction<(RootSinglePlaylist | RootSingleArtist)[]>>;
+    setSingleData: React.Dispatch<React.SetStateAction<(RootSinglePlaylist | RootSingleArtist | RootSingleAlbum)[]>>;
     setArtistTopTracks: React.Dispatch<React.SetStateAction<RootArtistTopTracks[]>>;
 }
-
 
 
 
@@ -24,7 +23,7 @@ const handle_get_single_playlist = async (
         navigate,
         storedToken,
         setSingleData
-    }: Omit<GetSingle_Playlist_Artist_ArtistAlbum, "setArtistTopTracks">
+    }: Omit<GetSingle_Playlist_Artist_ArtistAlbum_AlbumTracks, "setArtistTopTracks">
 ) => {
     try {
         const options: RequestInit = {
@@ -58,7 +57,7 @@ const handle_get_single_artist = async (
         storedToken,
         setSingleData,
         setArtistTopTracks
-    }: GetSingle_Playlist_Artist_ArtistAlbum
+    }: GetSingle_Playlist_Artist_ArtistAlbum_AlbumTracks
 ) => {
     try {
         const options: RequestInit = {
@@ -99,7 +98,7 @@ const handle_get_artist_top_tracks = async (
         navigate,
         storedToken,
         setArtistTopTracks
-    }: Omit<GetSingle_Playlist_Artist_ArtistAlbum, "setSingleData">
+    }: Omit<GetSingle_Playlist_Artist_ArtistAlbum_AlbumTracks, "setSingleData">
 
 ) => {
     try {
@@ -127,8 +126,44 @@ const handle_get_artist_top_tracks = async (
 }
 
 
+const handle_get_single_album = async (
+    {
+        id,
+        navigate,
+        storedToken,
+        setSingleData
+    }: Omit<GetSingle_Playlist_Artist_ArtistAlbum_AlbumTracks, "setArtistTopTracks">
+) => {
+    try {
+
+        const options: RequestInit = {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ id: id, access_token: storedToken })
+        }
+
+        const response = await fetch("/get-album", options);
+        const { data }: {data: RootSingleAlbum | ExpiredToken_BadRequest_BadOAuth} = await response.json();
+        
+        if(!data || "error" in data) {
+            localStorage.removeItem("refresh_token");
+            localStorage.removeItem("access_token");
+            navigate("/");
+        } else {
+            setSingleData([ data ]);
+        }
+    } catch(error) {
+        console.log(error);
+        
+    }
+
+}
+
 
 export {
     handle_get_single_playlist,
-    handle_get_single_artist
+    handle_get_single_artist,
+    handle_get_single_album
 };

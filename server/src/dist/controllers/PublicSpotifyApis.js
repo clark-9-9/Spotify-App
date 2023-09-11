@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetArtistTopTrack = exports.GetArtist = exports.GetPlaylist = void 0;
+exports.GetAlbum = exports.GetArtistTopTrack = exports.GetArtist = exports.GetPlaylist = void 0;
 async function GetPlaylist(req, res) {
     const id = req.body.id;
     const accessToken = req.body.access_token;
@@ -67,3 +67,25 @@ async function GetArtistTopTrack(req, res) {
     }
 }
 exports.GetArtistTopTrack = GetArtistTopTrack;
+async function GetAlbum(req, res) {
+    const id = req.body.id;
+    const accessToken = req.body.access_token;
+    if (!accessToken)
+        return res.status(401).json({ error: 'Access token missing' });
+    try {
+        const getArtistTopTrackEndpoint = `https://api.spotify.com/v1/albums/${id}?limit=50`;
+        const options = {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            },
+        };
+        const response = await fetch(getArtistTopTrackEndpoint, options);
+        const data = await response.json();
+        res.status(200).json({ data });
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+exports.GetAlbum = GetAlbum;

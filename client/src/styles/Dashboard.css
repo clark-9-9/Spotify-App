@@ -1,12 +1,22 @@
 
 
 .Dashboard {
+    position: relative;
     height: 100%;
     width: 100%;
     background-color: var(--Sidebar_Dashboard_Color);   
     border-radius: 8px;
 }
 
+
+.homePageIllustration {
+    height: 500px;
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 
 /* ---- Loader ---- */
@@ -95,6 +105,13 @@ article.Header_Rectangle_Container {
 }
 
 
+@media (width < 560px) {
+    .Profile_Image {
+        display: none;
+    }
+}
+
+
 .Song_Titles {
     color: white;
     font-weight: 600;
@@ -134,8 +151,7 @@ article.Pause_Play_Like_Follow_Container {
 }
 
 
-.Pause_play_Btn [name="play"], 
-.Pause_play_Btn [name="pause"] {
+.Pause_play_Btn :is([name="play"], [name="pause"]) {
     background-color: var(--Green_Color);
     padding: 1rem;
     font-size: 1.5rem;
@@ -189,11 +205,13 @@ article.Pause_Play_Like_Follow_Container {
 }
 
 
-.Pause_play_Btn [name="play"]:hover, 
-.Pause_play_Btn [name="pause"]:hover, 
-[name="ellipsis-horizontal"]:hover,
-.Follow_Liked_Btn [name="heart"]:hover {
+:is(
+    .Pause_play_Btn :is( [name="play"], [name="pause"]),
+    [name="ellipsis-horizontal"],
+    .Follow_Liked_Btn [name="heart"]
+):hover {
     transform: scale(1.09);
+
 }
 
 
@@ -252,7 +270,7 @@ article.List_Of_Songs_Container {
 }
 
 
-.Song, .Artist_Song {
+.Song {
     width: 100%;
     padding: 10px 16px;
     color: rgba(255, 255, 255, 0.7);
@@ -268,11 +286,6 @@ article.List_Of_Songs_Container {
     gap: 10px;
 }
 
-/* 
-.Artist_Song {
-    grid-template-columns: [first] 30px [second] 4fr [third] 2fr [fourth] minmax(120px,1fr);
-} 
-*/
 
 
 @media(width < 1200px) {
@@ -287,25 +300,38 @@ article.List_Of_Songs_Container {
 }
 
 
-.Song:hover, .Artist_Song:hover {
+.Song:hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255);
     transform: scale(1.01);
 }
 
 
-.Song div, .Song div span, .Song div span p,
-.Artist_Song div, .Artist_Song div span, .Artist_Song div span p {
+.Song div, .Song div span, .Song div span p {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;  
 }
 
 
-.Song img, .Artist_Song img {
+.Song img {
     height: 40px;
     width: 40px;
     object-fit: cover;
+}
+
+
+.Album_Song {
+    grid-template-columns: [first] 30px [second] 7fr [third] minmax(80px, 1fr);
+}
+
+
+.Album_Song .Third_Column {
+    display: none;
+}
+
+.Album_Song img {
+    display: none;
 }
 
 
@@ -347,7 +373,7 @@ article.List_Of_Songs_Container {
 */
 
 
-.Playlists_Container {
+.Playlists_Container, .Albums_Container {
     width: 100%;
     height: 100%;
     padding: 10px;
@@ -356,18 +382,18 @@ article.List_Of_Songs_Container {
 }
 
 
-.Playlists_Container h3 {
+:is(.Playlists_Container, .Albums_Container) h3 {
     margin-left: 15px;
     margin-top: 10px;
 }
 
 
-.Playlists_Container::-webkit-scrollbar {
+:is(.Playlists_Container, .Albums_Container)::-webkit-scrollbar {
     display: none;
 }
 
 
-.List_Of_Playlists {
+.List_Of_Playlists, .List_Of_Albums {
     width: 100%;
     margin-top: 2rem;
     list-style: none;
@@ -376,7 +402,7 @@ article.List_Of_Songs_Container {
 }
 
 
-.Playlist_List {
+.Playlist_List, .Albums_List {
     padding: 10px 15px;
     border-radius: 4px;
     text-decoration: none;
@@ -389,13 +415,13 @@ article.List_Of_Songs_Container {
 }
 
 
-.Playlist_List:hover {
+:is(.Playlist_List, .Albums_List):hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-3px);
 }
 
 
-.Playlist_List img {
+:is(.Playlist_List, .Albums_List) img {
     height: 72px;
     width: 72px;
     border-radius: 4px;
@@ -403,21 +429,21 @@ article.List_Of_Songs_Container {
 }
 
 
-.Playlist_List div {
+:is(.Playlist_List, .Albums_List) div {
     display: flex;
     flex-direction: column;
     gap: 7px;
 }
 
 
-.Playlist_List div p:nth-child(1) {
+:is(.Playlist_List, .Albums_List) div p:nth-child(1) {
     font-size: 15px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
 }
 
 
-.Playlist_List div p:nth-child(2) {
+:is(.Playlist_List, .Albums_List) div p:nth-child(2) {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.7);
 }
@@ -500,3 +526,4 @@ article.List_Of_Songs_Container {
 }
 
 
+/* ---- Album ---- */

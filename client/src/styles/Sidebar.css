@@ -3,23 +3,16 @@
 .Sidebar {
     height: 100%;
     min-width: 320px;
-    /* width: 410px; */
-    /* max-width: 470px; */
-    /* min-width: 280px; */
-    /* min-width: 310px; */
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* resize: horizontal; */
-    /* overflow-x: auto;  */
-    /* border: 1px solid; */
 }
 
 
 @media(width < 1000px) {
-    /* .Sidebar {
+    .Sidebar {
         display: none;
-    } */
+    } 
 }
 
 
@@ -34,7 +27,8 @@ section.Top_Sidebar {
 }
 
 
-.Top_Sidebar article {
+.Top_Sidebar :is(article, a) {
+    text-decoration: none;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -48,32 +42,18 @@ section.Top_Sidebar {
 } 
 
 
-.Top_Sidebar article p {
+.Top_Sidebar :is(article, a) p {
     color: rgba(255, 255, 255, 0.7);
     font-size: 15px;
     transition: 200ms ease-in-out color;
 }
 
 
-.Top_Sidebar article:hover .Home_Svg, 
-.Top_Sidebar article:hover .Search_Svg,
-.Top_Sidebar article:hover p {
+:is(.Top_Sidebar, .Navbar) :is(article, a):hover :is(.Home_Svg, .Search_Svg, p) {
     fill: rgba(255, 255, 255);
     color: rgba(255, 255, 255);
 }
 
-
-/*
-.User_Ic {
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.7);
-    transition: 200ms ease-in-out color;
-}
-
-.Top_Sidebar article:hover .User_Ic {
-    color: rgba(255, 255, 255);
-}
-*/
 
 
 section.Bottom_Sidebar {
@@ -88,13 +68,10 @@ section.Bottom_Sidebar {
 
 .Bottom_Sidebar_Header {
     background-color: var(--Sidebar_Dashboard_Color);
-    /* padding: 16px 20px; */
     padding: 20px 20px;
     display: flex;
     flex-direction: column;
     gap: 25px;
-    /* display: none; */
-    /* box-shadow: 2px 2px 10px black; */
 }
 
 
@@ -118,98 +95,6 @@ section.Bottom_Sidebar {
 }
 
 
-/*
-.LibraryTitle_CreateBtn_Container span:nth-child(2) {
-    
-}
-
-
-.Add_Outline_Ic {
-    padding: 2px;
-    font-size: 1.5rem  ;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 200ms ease-in-out background-color;
-} 
-
-
-.Add_Outline_Ic:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-
-.Create_Playlist_Folder_Box {
-    position: absolute;
-    width: max-content;
-    background-color: var(--Darkened_Label_Color);
-    margin-top: 5px;
-    padding: 4px;
-    opacity: 0;
-    border-radius: 3px;
-    visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: 200ms ease-in-out opacity, 200ms ease-in-out visibility;
-}
-
-
-animation-name: CreatePlaylistAndFolder;
-animation-duration: 200ms;
-animation-timing-function: ease-in-out;
-
-@keyframes CreatePlaylistAndFolder {
-    from { opacity: 0; }
-    to { opacity: 1; }
-} 
-
-
-
-.Create_Playlist_Folder_Box button {
-    color: white;
-    background-color: transparent;
-    font-size: 14px;
-    padding: 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: none;
-    outline: none;
-}
-
-
-.Create_Playlist_Folder_Box button:hover {
-    background-color: rgb(255,255,255, 0.1);
-}
-
-*/
-
-
-/*
-ul.Selection_List {
-    display: flex;
-    gap: 10px;
-    text-decoration: none;
-    list-style: none;
-}
-
-
-.Selection_List li {
-    background-color: rgba(255, 255, 255, 0.1);
-    font-size: 13px;
-    padding: 8px 12px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 200ms ease-in-out background-color;
-}
-
-
-.Selection_List li:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-*/
 
 .User_Library {
     height: 100%;
@@ -242,81 +127,6 @@ ul.Selection_List {
 }
  
 
-/*
-
-.Search_User_Saved_Item {
-    padding: 0 16px; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-.Recent_Box {
-    color: rgb(255, 255, 255, 0.7);
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 14px;
-}   
-
-
-.Search_Ic_Box {
-    position: relative;
-}
-
-
-[name='search-outline'].Search_Ic {
-    position: absolute;
-    left: 7px;
-    top: 50%;
-    translate: 0 -50%;
-    font-size: 1.2rem ;
-    border-radius: 50%;
-    padding: 4px;
-    cursor: pointer;
-    transition: 200ms ease-in-out background-color;
-}
-
-
-.Search_Ic:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-
-.Search_Input {
-    width: 200px;
-    height: 32px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    padding-left: 35px;
-    padding-right: 10px;
-    border-radius: 3px;
-    border: none;
-    outline: none;
-    transition: 
-        300ms ease-in-out width, 
-        300ms ease-in-out padding,
-        300ms ease-in-out visibility,
-        300ms ease-in-out opacity,
-    ;
-}
-
-
-.Search_Input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-
-.User_Saved_Item_Container {
-    position: relative;
-    height: 100%;
-
-    margin-top: 10px;
-}
-
-*/
-
 .User_Saved_Item {
     width: 100%;
     height: 100%;
@@ -326,31 +136,31 @@ ul.Selection_List {
 }
 
 .User_Collections {
-    /* padding: 0 16px; */
     padding: 0 12px;
     margin-top: 10px;
     list-style: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    transition: 200ms ease-in-out background-color;
 }
 
 
 .Collection {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
     padding: 10px;
     border-radius: 3px;
-    text-decoration: none;
-    color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
-    transition: 200ms ease-in-out background-color;
+    transition: 200ms ease-in-out;
+    transition-property: background-color, color;
 }
 
 
 .Collection:hover {
+    color: rgba(255, 255, 255);
     background-color: rgb(255,255,255, 0.1);
 }
 
@@ -364,67 +174,53 @@ ul.Selection_List {
 }
 
 
+/* ---- Navbar ---- */
 
 
-/*   
-.User_Saved_Item_Container {
-    position: relative;
-    height: 100%;
-    padding: 0 7px;
-    margin-top: 10px;
+.Navbar {
+    background-color: var(--Sidebar_Dashboard_Color);
+    padding: 15px 10px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    display: none;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 
-.User_Saved_Item {
-    width: 100%;
-    height: 100%;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-}
+@media(width < 1000px) {
+    .Navbar {
+        display: flex;
+    }
+}   
 
 
-.User_Saved_List {
-    width: 100%;
-    padding: 8px 12px;
+.Nav_Link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
     cursor: pointer;
-    border-radius: 7px;
-    display: flex;
-    gap: 10px;
-    transition: 200ms ease-in-out background-color;
-}
-
-
-.User_Saved_List:hover {
-    background-color: rgb(255,255,255, 0.1);
-}
-
-
-.User_Saved_List img {
-    height: 55px;
-    width: 55px;
-}
-
-.Artist img {
-    border-radius: 50%;
-}
-
-.Playlist img {
-    border-radius: 7px;
-}
-
-
-.Title_Name_Container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 5px;
+    align-items: center;
+    gap: 4px;
 }
 
 
-.Title_Name_Container p:nth-child(2) {
-    font-size: 13px;
-    color: rgb(255, 255, 255, 0.7);
-} 
+.Nav_Link:hover {
+    color: rgba(255, 255, 255);
+}
 
-*/
+
+.Navbar :is(.Home_Svg, .Search_Svg, .Library_Svg) {
+    height: 26px;
+    width: 26px;
+}
+
+
+.Nav_Link p {
+    font-size: 12px;
+}
+

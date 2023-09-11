@@ -74,8 +74,33 @@ async function GetArtistTopTrack(req: Request, res: Response) {
 }
 
 
+async function GetAlbum(req: Request, res: Response) {
+    const id: string = req.body.id;
+    const accessToken: string = req.body.access_token;
+    if (!accessToken) return res.status(401).json({ error: 'Access token missing' });
+
+    try {
+        const getArtistTopTrackEndpoint = `https://api.spotify.com/v1/albums/${id}?limit=50`;
+        
+        const options: RequestInit = {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }, 
+        };
+
+        const response = await fetch(getArtistTopTrackEndpoint, options);
+        const data = await response.json();
+        res.status(200).json({ data });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 export { 
     GetPlaylist,
     GetArtist,
-    GetArtistTopTrack
+    GetArtistTopTrack,
+    GetAlbum
 };

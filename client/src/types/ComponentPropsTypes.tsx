@@ -1,23 +1,14 @@
 import { Item } from "./Tracks";
 import { Track } from "./ArtistTopTrack";
+import { Item as SinglePlaylistItem} from "./SinglePlaylist";
+import { Item as SingleAlbumItem } from "./SingleAlbum";
 
-
-export interface TopSidebarTypes {
-    changeHomeIconAndState: {
-        changeHomeIcon: boolean; 
-        setChangeHomeIcon: React.Dispatch<React.SetStateAction<boolean>>;
-    };
-
-    changeSearchIconAndState: {
-        changeSearchIcon: boolean; 
-        setChangeSearchIcon: React.Dispatch<React.SetStateAction<boolean>>;
-    }
-}
- 
 
 export interface SongsPropsTypes {
     index: number, 
-    item?: Item, 
-    track?: Track, 
+    item?: Item
+    playlistTrack?: SinglePlaylistItem, 
+    artistTrack?: Track, 
+    albumTrack?: SingleAlbumItem
 } 
 

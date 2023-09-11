@@ -6,6 +6,7 @@ import Albums from "../components/Collections/Albums";
 import Artists from "../components/Collections/Artists";
 import Login from "../pages/Login";
 import SingleItem from "../components/Collections/SingleItem";
+import { BottomSidebar } from "../components/main/Sidebar";
 
 const error = <h3>No route matches to {window.location.pathname}</h3>;
 
@@ -37,6 +38,10 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
             {
                 path: "collection/single/:id",
                 element: <SingleItem />
+            },
+            {
+                path:"collection",
+                element: <BottomSidebar />,
             }
         ]
     },    

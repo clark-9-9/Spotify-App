@@ -7,7 +7,7 @@ import MainProvider from '../context/MainProvider'
 function Main() {
 
     return (
-        <MainProvider>
+        <MainProvider>            
             <div className="Main">
                 <Sidebar />
                 <Dashboard />

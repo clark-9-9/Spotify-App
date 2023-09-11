@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import Main from './pages/Main';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './components/main/Navbar';
 
 
 function App() {
@@ -12,7 +13,10 @@ function App() {
     }, [storedToken, navigate]) 
     
     return (
-        <Main /> 
+        <Fragment>
+            <Navbar />
+            <Main /> 
+        </Fragment>
     )   
 }
 

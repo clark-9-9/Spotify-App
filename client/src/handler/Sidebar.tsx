@@ -10,12 +10,17 @@ const handle_change_search_icon = (setChangeHomeIcon: BooleanStateType, setChang
     setChangeSearchIcon(true); 
 }
 
+
 const handle_mouseover_mouseout = (text: number, color: string, condition: boolean): void => {
-    const texts = document.querySelectorAll(".Top_Sidebar article p") as NodeListOf<HTMLParagraphElement>;
+    const articles = document.querySelectorAll(".Top_Sidebar article") as NodeListOf<HTMLElement>;
     if(condition) {
-        texts[text].style.color = color;
+        const paragraph = articles[text]?.querySelector("p");
+        if(paragraph) {
+            paragraph.style.color = color;
+        }
     }
 };
+
 
 
 const handle_create_box = (boxRef: React.RefObject<HTMLDivElement>) => {
