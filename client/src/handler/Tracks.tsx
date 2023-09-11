@@ -17,7 +17,8 @@ const handle_fetch_tracks = async (
     }: FetchTracksParamTypes
 
 ) => {
-    const response = await fetch("/get-tracks", {
+    // const backendEndpoint = "https://spotify-clone-backend-2uyg.onrender.com";
+    const response = await fetch(`/get-tracks`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
